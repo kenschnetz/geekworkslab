@@ -172,9 +172,26 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                {{ __('Home') }}
             </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('items') }}" :active="request()->routeIs('items')">
+                {{ __('Items') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('monsters') }}" :active="request()->routeIs('monsters')">
+                {{ __('Monsters') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('hooks') }}" :active="request()->routeIs('hooks')">
+                {{ __('Hooks') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('abilities') }}" :active="request()->routeIs('abilities')">
+                {{ __('Abilities') }}
+            </x-jet-responsive-nav-link>
+            @auth
+                <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-jet-responsive-nav-link>
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->
