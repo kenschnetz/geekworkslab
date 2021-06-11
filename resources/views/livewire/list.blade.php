@@ -4,9 +4,9 @@
             @if(count($post_categories) > 0)
                 <x-table>
                     <x-slot name="head">
-                        <x-table.heading>Thumbnail</x-table.heading>
-                        <x-table.heading>Name</x-table.heading>
-                        <x-table.heading>Description</x-table.heading>
+{{--                        <x-table.heading>Thumbnail</x-table.heading>--}}
+{{--                        <x-table.heading>Name</x-table.heading>--}}
+{{--                        <x-table.heading>Description</x-table.heading>--}}
 {{--                        <x-table.heading>Upvotes</x-table.heading>--}}
 {{--                        <x-table.heading>Downvotes</x-table.heading>--}}
 {{--                        <x-table.heading>Comments</x-table.heading>--}}
