@@ -4,10 +4,14 @@
 
     use Illuminate\Database\Eloquent\Model;
 
-    class PostContent extends Model {
-        protected $fillable = ['post_id', 'name', 'description', 'image_url', 'content', 'status', 'version'];
+    class PostMeta extends Model {
+        protected $guarded = ['id'];
 
         public function Post() {
             return $this->belongsTo('App\Models\Post');
+        }
+
+        public function PostFields() {
+            return $this->hasMany('App\Models\PostField');
         }
     }

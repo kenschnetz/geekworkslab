@@ -1,64 +1,93 @@
-<div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-    <div class="relative">
-        <div class="relative max-w-4xl mx-auto">
-            <div class="mt-12 max-w-lg mx-auto lg:max-w-none">
-                <div class="rounded-lg shadow-lg overflow-hidden grid lg:grid-cols-2">
-                    <div class="flex flex-col">
-                        <img class="w-full object-cover" src="/storage/post-images/amulet-of-awesomeness.jpeg" style="min-width: 100%; min-height: 100%;">
-                    </div>
-                    <div class="bg-white p-6 flex flex-col justify-between">
-                        <div class="flex-1">
-                            <a href="#" class="block mt-2">
-                                <p class="text-xl font-semibold text-gray-900">
-                                    <u>Amulet Of Awesomeness</u>
+<div>
+    <div class="p-4 bg-white border-b border-gray-200">
+        <p class="text-2xl font-semibold text-gray-900 text-center">
+            {{$post->meta->name}}
+        </p>
+        <p class="text-gray-500 text-center">
+            By {{$post->User->name}} | Last Updated: {{ \Carbon\Carbon::parse($post->updated_at)->format('j F, Y') }} | Version: {{$post->meta->version}}
+
+        </p>
+        <hr class="my-3"/>
+        <div class="relative">
+            <div class="relative max-w-4xl mx-auto">
+                <div class="mt-12 max-w-lg mx-auto lg:max-w-none">
+                    <div class="overflow-hidden grid lg:grid-cols-2">
+                        <div class="flex flex-col">
+                            <img class="w-full object-cover" src="{{$post->meta->image_url}}" style="min-width: 100%; min-height: 100%;">
+                        </div>
+                        <div class="p-6 flex flex-wrap content-center">
+                            <div>
+                                <p class="text-xl mt-3 text-base text-gray-500">
+                                    {{$post->meta->description}}
                                 </p>
-                            </a>
-                            <p class="text-sm font-medium text-gray-900">
-                                <i>Version: 3</i>
-                            </p>
-                            <p class="mt-3 text-base text-gray-500">
-                                Your Constitution score is 19 while you wear this amulet. It has no effect on you if
-                                your Constitution is already 19 or higher without it.
-                            </p>
-                            <p class="mt-3 text-base text-gray-500">
-                                <strong>Item type:</strong> Jewelry<br/>
-                                <strong>Modifies:</strong> Constitution<br/>
-                                <strong>Rarity:</strong> Wondrous Item, Rare (requires attunement)<br/>
-                                <strong>Requires attunement:</strong> Yes
-                            </p>
-                            <hr class="mt-3 mb-3"/>
-                            <p class="mt-3 text-base text-gray-500">
-                                <strong>Author: </strong>
-                                <a href="#" class="hover:underline">
-                                    <u>Ken Schnetz</u>
-                                </a><br/>
-                                <strong>Rating: </strong>4<br/>
-                                <strong>Category: </strong><u>Item</u><br/>
-                                <strong>Tags: </strong><u>Jewelry</u>, <u>Attuned</u>, <u>Rare</u>, <u>Constitution</u><br/>
-                                <strong><u>21 Comments</u></strong>
-                            </p>
-                            <hr class="mt-3 mb-3"/>
-                            <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                                <button type="button" class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                    Branch
-                                </button>
-                                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                    Recommend
-                                </button>
-                                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                    Comment
-                                </button>
-                                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                    Save
-                                </button>
-                                <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-                                    Share
-                                </button>
-                            </span>
+                                <hr class="my-3"/>
+                                <p class="mt-3 text-base text-gray-500">
+                                    {{$post->meta->content}}
+                                </p>
+                                <hr class="my-3"/>
+                                <p class="mt-3 text-base text-gray-500">
+                                    @foreach($post->meta->PostFields as $field)
+                                        <strong>{{$field->name}}:</strong> {{$field->value}}<br/>
+                                    @endforeach
+                                </p>
+                                <p class="text-base text-gray-500">
+                                    <strong>Categories:</strong>
+                                    @foreach($post->PostCategories as $post_category)
+                                        {{$post_category->Category->name . ($loop->last ? '' : ', ')}}
+                                    @endforeach
+                                </p>
+                                <p class="text-base text-gray-500">
+                                    <strong>Tags:</strong>
+                                    @foreach($post->PostTags as $post_tag)
+                                        {{$post_tag->Tag->name . ($loop->last ? '' : ', ')}}
+                                    @endforeach
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <hr class="my-3"/>
+            <div class="overflow-hidden grid lg:grid-cols-3">
+                <div class="flex flex-col justify-center font-medium">
+                    <span class="inline-block align-middle">Upvotes: {{$post->upvotes}}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="relative z-0 inline-flex shadow-sm rounded-md" style="display: flex;">
+                        <button type="button" style="flex: 1;" class="w-3/12 align-center relative items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                            Branch
+                        </button>
+                        <button type="button" style="flex: 1;" class="w-3/12 align-center -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                            Edit
+                        </button>
+                        <button type="button" style="flex: 1;" class="w-3/12 align-center -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                            Save
+                        </button>
+                        <button type="button" style="flex: 1;" class="w-3/12 align-center -ml-px relative items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                            Share
+                        </button>
+                    </span>
+                </div>
+                <div class="flex flex-col justify-center text-right font-medium">
+                    <span class="inline-block align-middle">Downvotes: {{$post->downvotes}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-6 p-4 bg-white border-gray-200">
+        <p class="text-2xl font-semibold text-gray-900 text-center mb-3">
+            Comments
+        </p>
+        @guest
+        <p class="text-sm font-semibold text-gray-900 text-center mb-3">
+            <i>You must be logged in to leave a comment, reply to a comment, or rate other comments.</i>
+        </p>
+        @endguest
+        @foreach($post->PostComments as $post_comment)
+            <div class="border-t">
+                @livewire('post-comment', ['post_comment' => $post_comment])
+            </div>
+        @endforeach
     </div>
 </div>

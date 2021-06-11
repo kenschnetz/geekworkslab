@@ -5,9 +5,13 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Category extends Model {
-        protected $fillable = ['name', 'description'];
+        protected $guarded = ['id'];
+
+        public function PostCategories() {
+            return $this->hasMany('App\Models\PostCategory');
+        }
 
         public function Posts() {
-            return $this->hasMany('App\Models\Post');
+            return $this->hasManyThrough('App\Models\Post', 'App\Models\PostCategory');
         }
     }

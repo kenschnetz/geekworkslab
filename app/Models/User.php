@@ -64,7 +64,7 @@ class User extends Authenticatable
     }
 
     public function PostRatings() {
-        return $this->hasMany('App\Models\PostRating');
+        return $this->hasMany('App\Models\PostVote');
     }
 
     public function PostComments() {

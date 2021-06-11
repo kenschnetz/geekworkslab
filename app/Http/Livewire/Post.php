@@ -9,6 +9,7 @@
         public $name;
         public $post_id;
         public $post;
+        public $comments;
         public $delete = false;
         public $required_message = 'This field is required!';
 
@@ -20,8 +21,12 @@
 //                    'description' => null,
                 ];
             } else {
-                $this->post = PostModel::find($this->post_id)->first();
-                $this->name = $this->post['name'];
+                $this->post = PostModel::where('id', $this->post_id)->with('User', 'PostCategories', 'PostTags')->first();
+                $this->post->meta = $this->post->PostMetas()->with('PostFields')->orderBy('version', 'desc')->first();
+                $this->post->upvotes = $this->post->PostVotes()->where('vote', true)->count();
+                $this->post->downvotes = $this->post->PostVotes()->where('vote', false)->count();
+                $this->name = $this->post->meta->name;
+                $this->post->comments = $this->post->PostComments();
             }
         }
 

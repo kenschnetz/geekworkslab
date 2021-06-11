@@ -4,18 +4,18 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreatePostRatingsTable extends Migration {
+    class CreatePostVotesTable extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up() {
-            Schema::create('post_ratings', function (Blueprint $table) {
+            Schema::create('post_votes', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('user_id')->onDelete('cascade')->comment('ID of the rater');
                 $table->foreignId('post_id')->onDelete('cascade')->nullable()->comment('ID of the post');
-                $table->integer('rating')->default(5)->comment('Submitted rating');
+                $table->boolean('vote')->comment('Submitted vote');
                 $table->timestamps();
                 $table->foreign('user_id')->onDelete('cascade')->references('id')->on('users');
                 $table->foreign('post_id')->onDelete('cascade')->references('id')->on('posts');
@@ -28,6 +28,6 @@
          * @return void
          */
         public function down() {
-            Schema::dropIfExists('post_ratings');
+            Schema::dropIfExists('post_votes');
         }
     }

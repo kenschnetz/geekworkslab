@@ -5,7 +5,7 @@
     use Illuminate\Database\Eloquent\Model;
 
     class Post extends Model {
-        protected $fillable = ['user_id', 'post_id', 'type', 'published'];
+        protected $guarded = ['id'];
 
         public function User() {
             return $this->belongsTo('App\Models\User');
@@ -15,27 +15,23 @@
             return $this->belongsTo('App\Models\Post');
         }
 
-        public function PostRatings() {
-            return $this->hasMany('App\Models\PostRating');
+        public function PostVotes() {
+            return $this->hasMany('App\Models\PostVote');
         }
 
         public function PostCategories() {
-            return $this->hasMany('App\Models\PostCategory');
+            return $this->hasMany('App\Models\PostCategory')->with('Category');
         }
 
         public function PostTags() {
-            return $this->hasMany('App\Models\PostTag');
+            return $this->hasMany('App\Models\PostTag')->with('Tag');
         }
 
-        public function PostContent() {
-            return $this->hasMany('App\Models\PostContent');
-        }
-
-        public function PostFields() {
-            return $this->hasMany('App\Models\PostField');
+        public function PostMetas() {
+            return $this->hasMany('App\Models\PostMeta');
         }
 
         public function PostComments() {
-            return $this->hasMany('App\Models\PostComment');
+            return $this->hasMany('App\Models\PostComment')->whereNull('post_comment_id')->with('User', 'PostComments');
         }
     }

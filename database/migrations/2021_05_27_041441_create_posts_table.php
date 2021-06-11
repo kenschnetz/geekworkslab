@@ -16,9 +16,6 @@
                 $table->foreignId('user_id')->onDelete('cascade')->comment('ID of the author');
                 $table->foreignId('post_id')->onDelete('cascade')->nullable()->comment('ID of the originating post if exists');
                 $table->integer('type')->defualt(0)->comment('0 = original post, 1 = branch of parent, 2 = recommended changes for parent post');
-                $table->string('name', 255);
-                $table->string('description');
-                $table->integer('version');
                 $table->boolean('published')->default(false)->comment('Whether this post is published and visible to the public');
                 $table->timestamps();
                 $table->foreign('user_id')->onDelete('cascade')->references('id')->on('users');

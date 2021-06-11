@@ -15,17 +15,11 @@ class CreatePostFieldsTable extends Migration
     {
         Schema::create('post_fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id')->onDelete('cascade')->nullable()->comment('ID of the post');
+            $table->foreignId('post_meta_id')->onDelete('cascade')->nullable()->comment('ID of the post meta');
             $table->string('name', 80)->nullable()->comment('Field name');
-            $table->string('description', 510)->nullable()->comment('Field description');
-            $table->string('key', 80)->comment('Field key');
-            $table->integer('type')->comment('0 = string, 1 = integer, 2 = boolean, 3 = timestamp');
-            $table->string('string_value')->nullable();
-            $table->integer('integer_value')->nullable();
-            $table->boolean('boolean_value')->nullable();
-            $table->timestamp('timestamp_value')->nullable();
+            $table->string('value');
             $table->timestamps();
-            $table->foreign('post_id')->onDelete('cascade')->references('id')->on('posts');
+            $table->foreign('post_meta_id')->onDelete('cascade')->references('id')->on('post_metas');
         });
     }
 

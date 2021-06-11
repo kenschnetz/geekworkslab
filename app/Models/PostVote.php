@@ -4,8 +4,8 @@
 
     use Illuminate\Database\Eloquent\Model;
 
-    class PostRating extends Model {
-        protected $fillable = ['user_id', 'post_id', 'rating'];
+    class PostVote extends Model {
+        protected $guarded = ['id'];
 
         public function User() {
             return $this->belongsTo('App\Models\User');
