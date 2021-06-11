@@ -86,10 +86,18 @@
             <i>You must be logged in to leave a comment, reply to a comment, or rate other comments.</i>
         </p>
         @endguest
-        @foreach($post->PostComments as $post_comment)
+        @if(count($post->PostComments) > 0)
+            @foreach($post->PostComments as $post_comment)
+                <div class="border-t">
+                    @livewire('post-comment', ['post_comment' => $post_comment])
+                </div>
+            @endforeach
+        @else
             <div class="border-t">
-                @livewire('post-comment', ['post_comment' => $post_comment])
+                <p class="font-semibold text-gray-900 my-3">
+                    No comments yet. Why not leave one?
+                </p>
             </div>
-        @endforeach
+        @endif
     </div>
 </div>
