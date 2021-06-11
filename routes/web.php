@@ -37,6 +37,10 @@
         return view('components.layout', ['name' => 'Latest Abilities', 'view' => 'abilities', 'properties' => []]);
     })->name('abilities');
 
+    Route::get('/art', function () {
+        return view('components.layout', ['name' => 'Latest Art', 'view' => 'art', 'properties' => []]);
+    })->name('art');
+
     Route::get('/post/{post_id?}', function ($post_id = null) {
         return view('components.layout', ['name' => 'Post', 'view' => 'post', 'properties' => ['post_id' => $post_id]]);
     })->name('post');

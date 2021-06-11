@@ -36,6 +36,11 @@
                         {{ __('Abilities') }}
                     </x-jet-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('art') }}" :active="request()->routeIs('art')">
+                        {{ __('Art') }}
+                    </x-jet-nav-link>
+                </div>
                 @auth
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
@@ -186,6 +191,9 @@
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('abilities') }}" :active="request()->routeIs('abilities')">
                 {{ __('Abilities') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('art') }}" :active="request()->routeIs('art')">
+                {{ __('Art') }}
             </x-jet-responsive-nav-link>
             @auth
                 <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">

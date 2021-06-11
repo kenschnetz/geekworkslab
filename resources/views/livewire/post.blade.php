@@ -20,10 +20,12 @@
                                 <p class="text-xl mt-3 text-base text-gray-500">
                                     {{$post->meta->description}}
                                 </p>
-                                <hr class="my-3"/>
-                                <p class="mt-3 text-base text-gray-500">
-                                    {{$post->meta->content}}
-                                </p>
+                                @if($post->meta->content)
+                                    <hr class="my-3"/>
+                                    <p class="mt-3 text-base text-gray-500">
+                                        {{$post->meta->content}}
+                                    </p>
+                                @endif
                                 <hr class="my-3"/>
                                 <p class="mt-3 text-base text-gray-500">
                                     @foreach($post->meta->PostFields as $field)

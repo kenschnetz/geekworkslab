@@ -46,6 +46,10 @@
                     'name' => 'Abilities',
                     'description' => 'RPG abilities such as spells, traits, etc.'
                 ],
+                [
+                    'name' => 'Art',
+                    'description' => 'RPG art'
+                ],
             ]);
             DB::table('tags')->insert([
                 [
@@ -66,6 +70,11 @@
                 ],
             ]);
             DB::table('posts')->insert([
+                [
+                    'user_id' => 1,
+                    'type' => 0,
+                    'published' => 1,
+                ],
                 [
                     'user_id' => 1,
                     'type' => 0,
@@ -140,6 +149,15 @@ It seems that the only way to unravel this mystery is to venture into the sewers
                     'status' => 1,
                     'version' => 1
                 ],
+                [
+                    'post_id' => 5,
+                    'name' => 'Hydra',
+                    'description' => 'Terrifying multi-headed menace',
+                    'image_url' => '/storage/post-images/hydra.jpeg',
+                    'content' => '',
+                    'status' => 1,
+                    'version' => 1
+                ],
             ]);
             DB::table('post_fields')->insert([
                 [
@@ -209,7 +227,6 @@ It seems that the only way to unravel this mystery is to venture into the sewers
                     'post_id' => 1,
                     'vote' => false,
                 ],
-
             ]);
             DB::table('post_categories')->insert([
                 [
@@ -227,6 +244,10 @@ It seems that the only way to unravel this mystery is to venture into the sewers
                 [
                     'post_id' => 4,
                     'category_id' => 4,
+                ],
+                [
+                    'post_id' => 5,
+                    'category_id' => 5,
                 ],
             ]);
             DB::table('post_tags')->insert([
