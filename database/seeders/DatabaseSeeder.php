@@ -14,17 +14,17 @@
         public function run() {
             DB::table('users')->insert([
                 [
-                    'name' => 'Ken Schnetz',
+                    'name' => 'Ken',
                     'email' => 'ken@syntaxflow.com',
                     'password' => bcrypt('geekworksUser1!')
                 ],
                 [
-                    'name' => 'Chris Helton',
+                    'name' => 'Chris',
                     'email' => 'leviticusx@gmail.com',
                     'password' => bcrypt('geekworksUser2!')
                 ],
                 [
-                    'name' => 'Jason Stever',
+                    'name' => 'Jason',
                     'email' => 'jasonstever@yahoo.com',
                     'password' => bcrypt('geekworksUser3!')
                 ],

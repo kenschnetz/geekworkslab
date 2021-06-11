@@ -4,7 +4,7 @@
             {{$post->meta->name}}
         </p>
         <p class="text-gray-500 text-center">
-            By {{$post->User->name}} | Last Updated: {{ \Carbon\Carbon::parse($post->updated_at)->format('j F, Y') }} | Version: {{$post->meta->version}}
+            By {{$post->User->name}} <span class="mx-3">|</span> Last Updated: {{ \Carbon\Carbon::parse($post->updated_at)->format('j F, Y') }} <span class="mx-3">|</span> Version: {{$post->meta->version}}
 
         </p>
         <hr class="my-3"/>
