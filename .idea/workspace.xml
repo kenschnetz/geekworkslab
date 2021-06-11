@@ -2,29 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6d321e9-a0d8-403b-a2e2-bdceb9932502" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/livewire/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/Home.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/Home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Livewire/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Livewire/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PostCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PostCategory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PostComment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PostComment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PostCommentRating.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PostCommentRating.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PostContent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PostMeta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PostField.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PostField.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PostRating.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PostVote.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PostTag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/PostTag.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Tag.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Tag.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_05_27_041441_create_posts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_05_27_041441_create_posts_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_05_27_041445_create_post_ratings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_05_27_041445_create_post_votes_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_05_27_041513_create_post_content_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_05_27_041513_create_post_metas_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_05_27_041524_create_post_fields_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_05_27_041524_create_post_fields_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/home.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/post.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/post.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +179,7 @@
       <updated>1622071801662</updated>
       <workItem from="1622071802866" duration="14652000" />
       <workItem from="1622824832159" duration="5495000" />
-      <workItem from="1623283605065" duration="35626000" />
+      <workItem from="1623283605065" duration="36724000" />
     </task>
     <servers />
   </component>
