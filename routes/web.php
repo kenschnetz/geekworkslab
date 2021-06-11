@@ -17,10 +17,6 @@
         return view('components.layout', ['name' => 'Latest Submissions', 'view' => 'home', 'properties' => []]);
     })->name('home');
 
-    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
     Route::get('/items', function () {
         return view('components.layout', ['name' => 'Latest Items', 'view' => 'items', 'properties' => []]);
     })->name('items');
