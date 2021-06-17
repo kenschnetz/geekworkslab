@@ -13,6 +13,10 @@
     |
     */
 
+    Route::get('/dashboard', function () {
+        return view('components.layout', ['name' => 'Dashboard', 'view' => 'dashboard', 'properties' => []]);
+    })->name('dashboard')->middleware('auth');;
+
     Route::get('/', function () {
         return view('components.layout', ['name' => 'Latest Submissions', 'view' => 'home', 'properties' => []]);
     })->name('home');
