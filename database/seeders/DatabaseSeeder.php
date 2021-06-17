@@ -275,6 +275,42 @@ It seems that the only way to unravel this mystery is to venture into the sewers
                     'post_comment_id' => null,
                     'content' => 'This is cool!',
                 ],
+                [
+                    'user_id' => 3,
+                    'post_id' => 1,
+                    'post_comment_id' => 1,
+                    'content' => 'I agree',
+                ],
+                [
+                    'user_id' => 2,
+                    'post_id' => 1,
+                    'post_comment_id' => 2,
+                    'content' => 'I\'m not so sure...',
+                ],
+                [
+                    'user_id' => 1,
+                    'post_id' => 1,
+                    'post_comment_id' => 3,
+                    'content' => 'How come?',
+                ],
+                [
+                    'user_id' => 2,
+                    'post_id' => 1,
+                    'post_comment_id' => 4,
+                    'content' => 'I think it\'s a little too simplistic.',
+                ],
+                [
+                    'user_id' => 3,
+                    'post_id' => 1,
+                    'post_comment_id' => 3,
+                    'content' => 'It\'s a good start though',
+                ],
+                [
+                    'user_id' => 2,
+                    'post_id' => 1,
+                    'post_comment_id' => null,
+                    'content' => 'I think it needs more of a description, but this is an interesting start for sure!',
+                ],
             ]);
         }
     }
