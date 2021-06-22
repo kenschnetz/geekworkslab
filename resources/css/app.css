@@ -1,3 +1,13 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.border-radius-l-none {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+.border-radius-r-none {
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}

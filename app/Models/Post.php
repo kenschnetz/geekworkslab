@@ -32,6 +32,6 @@
         }
 
         public function PostComments() {
-            return $this->hasMany('App\Models\PostComment')->whereNull('post_comment_id')->with('User', 'PostComments');
+            return $this->hasMany('App\Models\PostComment')->whereNull('post_comment_id')->with('User', 'PostComments')->orderBy('created_at', 'desc');
         }
     }
