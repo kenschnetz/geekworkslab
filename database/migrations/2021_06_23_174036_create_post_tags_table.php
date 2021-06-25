@@ -4,21 +4,21 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateUsersTable extends Migration {
+    class CreatePostTagsTable extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up() {
-            Schema::create('users', function (Blueprint $table) {
+            Schema::create('post_tags', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
-                $table->string('email')->unique();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('password');
-                $table->rememberToken();
+                $table->foreignId('post_id');
+                $table->foreignId('tag_id');
                 $table->timestamps();
+                $table->foreign('post_id')->onDelete('cascade')->references('id')->on('posts');
+                $table->foreign('tag_id')->onDelete('cascade')->references('id')->on('tags');
+                $table->unique(['post_id', 'tag_id']);
             });
         }
 
@@ -28,6 +28,6 @@
          * @return void
          */
         public function down() {
-            Schema::dropIfExists('users');
+            Schema::dropIfExists('post_tags');
         }
     }

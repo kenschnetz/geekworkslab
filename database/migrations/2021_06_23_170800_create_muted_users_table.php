@@ -4,21 +4,20 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateUsersTable extends Migration {
+    class CreateMutedUsersTable extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up() {
-            Schema::create('users', function (Blueprint $table) {
+            Schema::create('muted_users', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
-                $table->string('email')->unique();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('password');
-                $table->rememberToken();
+                $table->foreignId('user_id');
+                $table->datetime('expiration')->comment('Date and time the mute expires');
+                $table->string('reason')->comment('Reason for the mute');
                 $table->timestamps();
+                $table->foreign('user_id')->onDelete('cascade')->references('id')->on('users');
             });
         }
 
@@ -28,6 +27,6 @@
          * @return void
          */
         public function down() {
-            Schema::dropIfExists('users');
+            Schema::dropIfExists('muted_users');
         }
     }

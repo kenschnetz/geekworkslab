@@ -4,21 +4,19 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateFailedJobsTable extends Migration {
+    class CreateBannedUsersTable extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up() {
-            Schema::create('failed_jobs', function (Blueprint $table) {
+            Schema::create('banned_users', function (Blueprint $table) {
                 $table->id();
-                $table->string('uuid')->unique();
-                $table->text('connection');
-                $table->text('queue');
-                $table->longText('payload');
-                $table->longText('exception');
-                $table->timestamp('failed_at')->useCurrent();
+                $table->foreignId('user_id');
+                $table->string('reason')->comment('Reason for the ban');
+                $table->timestamps();
+                $table->foreign('user_id')->onDelete('cascade')->references('id')->on('users');
             });
         }
 
@@ -28,6 +26,6 @@
          * @return void
          */
         public function down() {
-            Schema::dropIfExists('failed_jobs');
+            Schema::dropIfExists('banned_users');
         }
     }

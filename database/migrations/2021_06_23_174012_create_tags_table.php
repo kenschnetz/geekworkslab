@@ -4,21 +4,17 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Support\Facades\Schema;
 
-    class CreateFailedJobsTable extends Migration {
+    class CreateTagsTable extends Migration {
         /**
          * Run the migrations.
          *
          * @return void
          */
         public function up() {
-            Schema::create('failed_jobs', function (Blueprint $table) {
+            Schema::create('tags', function (Blueprint $table) {
                 $table->id();
-                $table->string('uuid')->unique();
-                $table->text('connection');
-                $table->text('queue');
-                $table->longText('payload');
-                $table->longText('exception');
-                $table->timestamp('failed_at')->useCurrent();
+                $table->string('name', 80)->unique();
+                $table->string('description', 200)->nullable();
             });
         }
 
@@ -28,6 +24,6 @@
          * @return void
          */
         public function down() {
-            Schema::dropIfExists('failed_jobs');
+            Schema::dropIfExists('tags');
         }
     }
