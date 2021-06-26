@@ -1,5 +1,6 @@
 <?php
 
+    use App\Models\Category as CategoryModel;
     use App\Models\Post as PostModel;
     use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,17 @@
             'properties' => []
         ]);
     })->name('home');
+
+//    Route::get('/categories/{category_slug}', function ($category_slug) {
+//        $category = CategoryModel::where('slug', $category_slug)->first();
+//        return view('components.layout', [
+//            'name' => 'Latest ' . $category->name,
+//            'view' => 'post-list',
+//            'properties' => [
+//                'category' => $category
+//            ]
+//        ]);
+//    })->name('categories');
 
     Route::get('/items', function () {
         return view('components.layout', [
@@ -85,7 +97,7 @@
         ]);
     })->name('art');
 
-    Route::get('/{post_slug}', function ($post_slug) {
+    Route::get('/post/{post_slug}', function ($post_slug) {
         $post = PostModel::where('slug', $post_slug)
             ->with('User', 'Images', 'Contributors', 'Tags', 'Attributes', 'Comments', 'Upvotes')
             ->first();
