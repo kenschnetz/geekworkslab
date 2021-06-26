@@ -87,7 +87,7 @@
 
     Route::get('/{post_slug}', function ($post_slug) {
         $post = PostModel::where('slug', $post_slug)
-            ->with('Images', 'Contributors', 'Tags', 'Attributes', 'Comments', 'Upvotes')
+            ->with('User', 'Images', 'Contributors', 'Tags', 'Attributes', 'Comments', 'Upvotes')
             ->first();
         return view('components.layout', [
             'name' => Str::singular($post->Category->name) . ": " . $post->title,
@@ -95,5 +95,16 @@
             'properties' => ['post' => $post]
         ]);
     })->name('post');
+
+    Route::get('/profile/{user_id?}', function ($user_id = null) {
+        if(empty($user_id)) {
+
+        }
+        return view('components.layout', [
+            'name' => 'Dashboard',
+            'view' => 'dashboard',
+            'properties' => []
+        ]);
+    })->name('dashboard')->middleware('auth');
 
     require __DIR__ . '/auth.php';

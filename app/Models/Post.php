@@ -50,6 +50,10 @@
                 ->withCount('Upvotes');
         }
 
+        public function AllComments() {
+            return $this->hasMany(PostComment::class);
+        }
+
         public function Upvotes() {
             return $this->hasMany(PostUpvote::class);
         }
