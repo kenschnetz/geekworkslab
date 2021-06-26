@@ -14,6 +14,7 @@
             Schema::create('categories', function (Blueprint $table) {
                 $table->id();
                 $table->string('name', 80)->unique();
+                $table->string('slug', 80)->unique();
                 $table->string('description', 200)->nullable();
             });
         }
