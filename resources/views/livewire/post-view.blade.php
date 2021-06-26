@@ -12,7 +12,9 @@
             </p>
             <hr class="my-3" />
             <p>
-                By {{ $post->User->name }} <span class="mx-3">|</span> Last Updated: {{ \Carbon\Carbon::parse($post->updated_at)->format('j F, Y') }} <span class="mx-3">|</span> <a href="#comments">{{$post->comment_count}} Comments</a>
+                <a href="{{ route('user-profile', ['user_id' => $post->User->id]) }}">By {{ $post->User->name }}</a><span class="mx-3"> | </span>
+                Last Updated: {{ \Carbon\Carbon::parse($post->updated_at)->format('j F, Y') }}<span class="mx-3"> | </span>
+                <a href="#comments">{{$post->comment_count}} Comments</a>
             </p>
             <hr class="my-3" />
         </div>

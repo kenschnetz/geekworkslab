@@ -12,7 +12,7 @@
             <x-slot name="head"></x-slot>
             <x-slot name="body">
                 @foreach($posts as $post)
-                    <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->slug}}')">
+                    <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">
                         <x-table.cell style="width: 180px;">
                             <img class="object-cover float-left" src="{{ optional($post->Images->first())->path ?? $default_image_url }}" style="min-width: 160px; min-height: 160px; overflow: hidden;">
                         </x-table.cell>

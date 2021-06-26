@@ -22,19 +22,19 @@
                         </x-slot>
                         <x-slot name="content">
                             <div class="w-60">
-                                <x-dropdown-link href="{{ route('items') }}">
+                                <x-dropdown-link href="{{ route('category', ['category_slug' => 'items']) }}">
                                     {{ __('Items') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('monsters') }}">
+                                <x-dropdown-link href="{{ route('category', ['category_slug' => 'monsters']) }}">
                                     {{ __('Monsters') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('hooks') }}">
+                                <x-dropdown-link href="{{ route('category', ['category_slug' => 'hooks']) }}">
                                     {{ __('Hooks') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('abilities') }}">
+                                <x-dropdown-link href="{{ route('category', ['category_slug' => 'abilities']) }}">
                                     {{ __('Abilities') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('art') }}">
+                                <x-dropdown-link href="{{ route('category', ['category_slug' => 'art']) }}">
                                     {{ __('Art') }}
                                 </x-dropdown-link>
                             </div>
@@ -98,19 +98,19 @@
             <x-label class="text-xl px-4">
                 {{ __('Categories') }}
             </x-label>
-            <x-dropdown-link href="{{ route('items') }}">
+            <x-dropdown-link href="{{ route('category', ['category_slug' => 'items']) }}">
                 {{ __('Items') }}
             </x-dropdown-link>
-            <x-dropdown-link href="{{ route('monsters') }}">
+            <x-dropdown-link href="{{ route('category', ['category_slug' => 'monsters']) }}">
                 {{ __('Monsters') }}
             </x-dropdown-link>
-            <x-dropdown-link href="{{ route('hooks') }}">
+            <x-dropdown-link href="{{ route('category', ['category_slug' => 'hooks']) }}">
                 {{ __('Hooks') }}
             </x-dropdown-link>
-            <x-dropdown-link href="{{ route('abilities') }}">
+            <x-dropdown-link href="{{ route('category', ['category_slug' => 'abilities']) }}">
                 {{ __('Abilities') }}
             </x-dropdown-link>
-            <x-dropdown-link href="{{ route('art') }}">
+            <x-dropdown-link href="{{ route('category', ['category_slug' => 'art']) }}">
                 {{ __('Art') }}
             </x-dropdown-link>
             @auth
@@ -123,8 +123,8 @@
                 </x-responsive-nav-link>
             @endauth
         </div>
-        @auth
-            <!-- Responsive Settings Options -->
+    @auth
+        <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4">
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
