@@ -89,6 +89,9 @@
         $post = PostModel::where('slug', $post_slug)
             ->with('User', 'Images', 'Contributors', 'Tags', 'Attributes', 'Comments', 'Upvotes')
             ->first();
+        if (empty($post)) {
+            abort('404');
+        }
         return view('components.layout', [
             'name' => Str::singular($post->Category->name) . ": " . $post->title,
             'view' => 'post-view',
@@ -97,14 +100,11 @@
     })->name('post');
 
     Route::get('/profile/{user_id?}', function ($user_id = null) {
-        if(empty($user_id)) {
-
-        }
         return view('components.layout', [
-            'name' => 'Dashboard',
-            'view' => 'dashboard',
-            'properties' => []
+            'name' => 'Profile',
+            'view' => 'profile',
+            'properties' => ['user_id' => $user_id]
         ]);
-    })->name('dashboard')->middleware('auth');
+    })->name('profile');
 
     require __DIR__ . '/auth.php';

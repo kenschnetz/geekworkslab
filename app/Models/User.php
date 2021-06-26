@@ -27,6 +27,7 @@
          * @var array
          */
         protected $hidden = [
+            'email',
             'password',
             'remember_token',
         ];
