@@ -16,8 +16,6 @@
     |
     */
 
-    require __DIR__ . '/auth.php';
-
     Route::get('/profile/{user_id?}', function ($user_id = null) {
         return view('components.layout', [
             'name' => 'Profile',
@@ -25,6 +23,8 @@
             'properties' => ['user_id' => $user_id]
         ]);
     })->name('profile');
+
+    require __DIR__ . '/auth.php';
 
     Route::get('/dashboard', function () {
         return view('components.layout', [
@@ -58,7 +58,8 @@
 
     Route::get('/{category_slug}/{post_slug}', function ($category_slug, $post_slug) {
         $post = PostModel::where('slug', $post_slug)
-            ->with('User', 'Images', 'Contributors', 'Tags', 'Attributes', 'Comments', 'Upvotes')
+            ->with('User', 'Images', 'Contributors', 'Tags', 'PostAttributes', 'Comments', 'Upvotes')
+            ->withCount('AllComments', 'Upvotes')
             ->first();
         if (empty($post) || !CategoryModel::where('slug', $category_slug)->exists()) {
             abort('404');

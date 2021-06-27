@@ -10,4 +10,8 @@
         public function Posts() {
             return $this->belongsToMany(Post::class, 'post_attributes');
         }
+
+        public function PostAttributes() {
+            return $this->hasMany(PostAttribute::class);
+        }
     }

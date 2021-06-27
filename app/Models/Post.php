@@ -35,8 +35,8 @@
             return $this->belongsToMany(Image::class, 'post_images');
         }
 
-        public function Attributes() {
-            return $this->belongsToMany(Attribute::class, 'post_attributes');
+        public function PostAttributes() {
+            return $this->hasMany(PostAttribute::class)->with('Attribute');
         }
 
         public function Contributors() {
@@ -47,7 +47,9 @@
             return $this->hasMany(PostComment::class)
                 ->whereNull('post_comment_id')
                 ->with('Comments')
-                ->withCount('Upvotes');
+                ->withCount('Comments')
+                ->withCount('Upvotes')
+                ->orderBy('created_at', 'desc');
         }
 
         public function AllComments() {
