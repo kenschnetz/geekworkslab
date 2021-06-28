@@ -14,15 +14,14 @@
                  .
                 <a class="inline-block text-xs align-bottom cursor-pointer"><i>Delete</i></a>
             @else
-                <a class="inline-block text-xs align-bottom cursor-pointer"><i>Reply</i></a>
+                <a href="#comments" class="inline-block text-xs align-bottom cursor-pointer" wire:click="RespondingTo({{$comment->id}}, '{{$comment->User->name}}', '{{Str::limit($comment->content, 200)}}')"><i>Reply</i></a>
             @endif
         @endauth
     </div>
     @foreach($comment->Comments as $comment)
-        <div class="ml-3 pl-3 border-l border-t" wire:key="{{ $loop->index }}">
-            <div wire:key="{{ $loop->index }}">
-                @include('components.comment')
-            </div>
+        <div class="ml-3 pl-3 border-l border-t" wire:key="{{$comment->id}}-reply-{{$loop->index}}">
+{{--            @include('components.comment')--}}
+            @livewire('post-comment', ['user' => $user], key($user->id))
         </div>
     @endforeach
 </div>

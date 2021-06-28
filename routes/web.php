@@ -57,16 +57,12 @@
     })->name('category');
 
     Route::get('/{category_slug}/{post_slug}', function ($category_slug, $post_slug) {
-        $post = PostModel::where('slug', $post_slug)
-            ->with('User', 'Images', 'Contributors', 'Tags', 'PostAttributes', 'Comments', 'Upvotes')
-            ->withCount('AllComments', 'Upvotes')
-            ->first();
-        if (empty($post) || !CategoryModel::where('slug', $category_slug)->exists()) {
+        if (!CategoryModel::where('slug', $category_slug)->exists() || !PostModel::where('slug', $post_slug)->exists()) {
             abort('404');
         }
         return view('components.layout', [
-            'name' => Str::singular($post->Category->name) . ": " . $post->title,
+            'name' => Str::singular(Str::title(str_replace('-', ' ', $category_slug))) . ": " . Str::title(str_replace('-', ' ', $post_slug)),//Str::singular($post->Category->name) . ": " . $post->title,
             'view' => 'post-view',
-            'properties' => ['post' => $post]
+            'properties' => ['post_slug' => $post_slug]
         ]);
     })->name('post');
