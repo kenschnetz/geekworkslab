@@ -26,6 +26,10 @@
             $this->emit('EditComment', $id, $post_comment_id, $content);
         }
 
+        public function DeleteComment($id) {
+            $this->emit('DeleteComment', $id);
+        }
+
         public function CommentDate($created_at) {
             return (new MiscUtilities)->ShortenDate($created_at);
         }

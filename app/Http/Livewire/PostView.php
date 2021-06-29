@@ -8,8 +8,11 @@
     use App\Utilities\Misc as MiscUtilities;
     use Illuminate\Support\Facades\Auth;
     use Livewire\Component;
+    use Livewire\WithPagination;
 
     class PostView extends Component {
+        use WithPagination;
+
         public int|null $comment_id = null;
         public int|null $post_comment_id = null;
         public string $comment_content = '';
@@ -17,12 +20,11 @@
         public string $replying_to_content = '';
         public bool $editing = false;
         public bool $replying = false;
-
         public int|null $user_id;
         public int|null $post_id;
         public string $post_slug;
         public string $default_image_url = '/storage/post-images/default-placeholder.png';
-        protected $listeners = ['ReplyingTo' => 'ReplyingTo', 'EditComment' => 'EditComment'];
+        protected $listeners = ['ReplyingTo' => 'ReplyingTo', 'EditComment' => 'EditComment', 'DeleteComment' => 'DeleteComment'];
 
         public function Mount() {
             $this->user_id = Auth::id();
@@ -53,6 +55,15 @@
                 ]
             );
             $this->emit('CommentsUpdated');
+            $this->ClearCommentForm();
+        }
+
+        public function DeleteComment($id) {
+            PostCommentModel::where('id', $id)->delete();
+            $this->emit('CommentsUpdated');
+        }
+
+        public function ClearCommentForm() {
             $this->reset('comment_id', 'post_comment_id', 'comment_content', 'replying_to_name', 'replying_to_content', 'editing', 'replying');
         }
 
@@ -62,10 +73,10 @@
 
         public function Render() {
             $post = PostModel::where('slug', $this->post_slug)
-                ->with('User', 'Images', 'Contributors', 'Tags', 'PostAttributes', 'Comments', 'Upvotes')
+                ->with('User', 'Images', 'Contributors', 'Tags', 'PostAttributes', 'Upvotes')
                 ->withCount('AllComments', 'Upvotes')
                 ->first();
             $this->post_id = $post->id;
-            return view('livewire.post-view')->with(['post' => $post]);
+            return view('livewire.post-view')->with(['post' => $post, 'comments' => $post->Comments()->paginate(10)]);
         }
     }

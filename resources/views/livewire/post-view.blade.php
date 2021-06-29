@@ -53,7 +53,15 @@
                 <div class="mb-4">
                     <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
                         <span class="font-semibold mr-2 text-left flex-auto">Responding to {{$replying_to_name}}: "<i>{{$replying_to_content}}</i>"</span>
-                        <i class="ml-3 far fa-times-circle cursor-pointer" wire:click="InitializeComment()"></i>
+                        <i class="ml-3 far fa-times-circle cursor-pointer" wire:click="ClearCommentForm()"></i>
+                    </div>
+                </div>
+            @endif
+            @if($editing)
+                <div class="mb-4">
+                    <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                        <span class="font-semibold mr-2 text-left flex-auto">Editing</span>
+                        <i class="ml-3 far fa-times-circle cursor-pointer" wire:click="ClearCommentForm()"></i>
                     </div>
                 </div>
             @endif
@@ -79,10 +87,12 @@
             </p>
         @endif
         <hr class="my-3" />
-        @if(count($post->Comments) > 0)
-            @foreach($post->Comments as $comment)
+        @if(count($comments) > 0)
+            @foreach($comments as $comment)
                 @livewire('post-comment', ['user_id' => $user_id, 'post' => $post, 'comment' => $comment], key($comment->id))
             @endforeach
+            <hr class="my-3" />
+            {{ $comments->links() }}
         @else
             <div>
                 <p class="font-semibold text-gray-900 my-3">
