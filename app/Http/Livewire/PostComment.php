@@ -8,19 +8,22 @@
 
     class PostComment extends Component {
         public $user_id;
+        public $post;
         public $comment;
         protected $listeners = ['CommentsUpdated' => '$refresh'];
 
-        public function Mount() {
-            $this->user_id = Auth::id();
+        public function Mount($user_id, $post, $comment) {
+            $this->user_id = $user_id;
+            $this->post = $post;
+            $this->comment = $comment;
         }
 
-        public function RespondingTo($id, $name, $content) {
-            $this->emit('RespondingTo', $id, $name, $content);
+        public function ReplyingTo($id, $name, $content) {
+            $this->emit('ReplyingTo', $id, $name, $content);
         }
 
-        public function EditComment($id, $content, $post_comment_id) {
-            $this->emit('EditComment', $id, $content, $post_comment_id);
+        public function EditComment($id, $post_comment_id, $content) {
+            $this->emit('EditComment', $id, $post_comment_id, $content);
         }
 
         public function CommentDate($created_at) {

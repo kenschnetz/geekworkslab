@@ -49,11 +49,11 @@
         </p>
         @if(Auth::check())
             <hr class="my-3" />
-            @if(!empty($responding_to_id))
+            @if($replying)
                 <div class="mb-4">
                     <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
-                        <span class="font-semibold mr-2 text-left flex-auto">Responding to {{$responding_to_name}}: "<i>{{$responding_to_content}}</i>"</span>
-                        <i class="ml-3 far fa-times-circle cursor-pointer" wire:click="CancelRespondingTo()"></i>
+                        <span class="font-semibold mr-2 text-left flex-auto">Responding to {{$replying_to_name}}: "<i>{{$replying_to_content}}</i>"</span>
+                        <i class="ml-3 far fa-times-circle cursor-pointer" wire:click="InitializeComment()"></i>
                     </div>
                 </div>
             @endif
@@ -61,17 +61,17 @@
                 @csrf
                 <div class="flex w-full">
                     <label class="sr-only" for="comment-content"></label>
-                    <input wire:model.defer="comment_content" type="text" class="form-input px-4 py-3 rounded-l-md flex-grow border-indigo-800 focus:outline-none focus:border-indigo-800 border-r-0" placeholder="Say something nice!" id="comment-content" wire:model.lazy="comment_content">
+                    <input wire:model.defer="comment_content" type="text" class="form-input px-4 py-3 rounded-l-md flex-grow border-indigo-800 focus:outline-none focus:border-indigo-800 border-r-0" placeholder="Say something nice!" id="comment-content">
                     <button type="submit" class="bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800 rounded-r">
                         Submit
                     </button>
                 </div>
-                @error('comment_content')
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                    <strong class="font-bold">Error:</strong>
-                    <span class="block sm:inline">{{$mesasge}}</span>
-                </div>
-                @enderror
+{{--                @error('comment.content')--}}
+{{--                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">--}}
+{{--                        <strong class="font-bold">Error:</strong>--}}
+{{--                        <span class="block sm:inline">{{$mesasge}}</span>--}}
+{{--                    </div>--}}
+{{--                @enderror--}}
             </form>
         @else
             <p class="font-semibold text-gray-900 my-3 italic">
@@ -81,32 +81,7 @@
         <hr class="my-3" />
         @if(count($post->Comments) > 0)
             @foreach($post->Comments as $comment)
-{{--                <div>--}}
-{{--                    <div class="my-3">--}}
-{{--                        <strong>{{$comment->User->name}}</strong> says:--}}
-{{--                        <span class="inline-block float-right text-xs">{{ $this->CommentDate($comment->created_at) }}</span>--}}
-{{--                    </div>--}}
-{{--                    <div class="my-3">--}}
-{{--                        {{$comment->content}}--}}
-{{--                    </div>--}}
-{{--                    <div class="py-3">--}}
-{{--                        @auth--}}
-{{--                            @if($user_id === $comment->user_id)--}}
-{{--                                <a href="#comments" class="inline-block text-xs align-bottom cursor-pointer" wire:click="EditComment({{$comment->id}}, '{{$comment->content}}', {{$comment->post_comment_id}})"><i>Edit</i></a>--}}
-{{--                                .--}}
-{{--                                <a class="inline-block text-xs align-bottom cursor-pointer"><i>Delete</i></a>--}}
-{{--                            @else--}}
-{{--                                <a href="#comments" class="inline-block text-xs align-bottom cursor-pointer" wire:click="RespondingTo({{$comment->id}}, '{{$comment->User->name}}', '{{addslashes(Str::limit($comment->content, 200))}}')"><i>Reply</i></a>--}}
-{{--                            @endif--}}
-{{--                        @endauth--}}
-{{--                    </div>--}}
-{{--                    @foreach($comment->Comments as $reply)--}}
-{{--                        <div class="ml-3 pl-3 border-l border-t">--}}
-{{--                            <livewire:post-comment :comment="$reply" wire:key="{{$comment->id}}-reply-{{$loop->index}}"></livewire:post-comment>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-                <livewire:post-comment :comment="$comment" wire:key="{{$loop->index}}"></livewire:post-comment>
+                @livewire('post-comment', ['user_id' => $user_id, 'post' => $post, 'comment' => $comment], key($comment->id))
             @endforeach
         @else
             <div>
