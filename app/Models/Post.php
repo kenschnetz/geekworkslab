@@ -18,6 +18,14 @@
             return $this->belongsTo(Post::class);
         }
 
+        public function ContentType() {
+            return $this->belongsTo(ContentType::class);
+        }
+
+        public function ContentSubtype() {
+            return $this->belongsTo(ContentSubtype::class);
+        }
+
         public function System() {
             return $this->belongsTo(System::class);
         }

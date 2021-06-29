@@ -6,10 +6,16 @@
     use App\Models\Post as PostModel;
     use App\Utilities\Misc as MiscUtilities;
     use Livewire\Component;
+    use Livewire\WithPagination;
 
     class PostList extends Component {
+        use WithPagination;
+
+        public bool $user_posts_only = false;
+        public int|null $user_id;
         public CategoryModel $category;
         public string $default_image_url = '/storage/post-images/default-placeholder.png';
+        public string $search_term = '';
 
         public function ShortenBigNumber($number) {
             return (new MiscUtilities)->ShortenBigNumber($number);
@@ -19,36 +25,44 @@
             return redirect()->route( 'post', ['category_slug' => $category_slug, 'post_slug' => $post_slug]);
         }
 
-//        public function FormatStat($number) {
-//            if ($number < 1000) {
-//                return number_format($number);
-//            } else if ($number < 1000000) {
-//                return number_format($number / 1000, 1) . 'k';
-//            } else if ($number < 1000000000) {
-//                return number_format($number / 1000000, 1) . 'm';
-//            } else if ($number < 1000000000000) {
-//                return number_format($number / 1000000000, 1) . 'b';
-//            } else {
-//                return number_format($number);
-//            }
-//        }
-
         public function Render() {
-            $posts = empty($this->category)
-                ? PostModel::where('type', '!=', 2)
+            $posts = $this->user_posts_only
+                ? PostModel::where('user_id', $this->user_id)
+                    ->where('content_type_id', '!=', 3)
+                    ->where('content_subtype_id', '!=', 4)
                     ->where('published', true)
                     ->where('moderated', false)
-                    ->with('Images')
+                    ->where(function($query) {
+                        $query->where('title', 'like', "%{$this->search_term}%")
+                            ->orWhere('description', 'like', "%{$this->search_term}%")
+                            ->orWhere('content', 'like', "%{$this->search_term}%");
+                    })->with('Images')
                     ->withCount('Upvotes', 'AllComments')
-                    ->get()
-                : $this->category
-                    ->Posts()
-                    ->where('type', '!=', 2)
-                    ->where('published', true)
-                    ->where('moderated', false)
-                    ->with('Images')
-                    ->withCount('Upvotes', 'AllComments')
-                    ->get();
-            return view('livewire.post-list', ['posts' => $posts]);
+                    ->paginate(20)
+                : (empty($this->category)
+                    ? PostModel::where('content_type_id', '!=', 3)
+                        ->where('content_subtype_id', '!=', 4)
+                        ->where('published', true)
+                        ->where('moderated', false)
+                        ->where(function($query) {
+                            $query->where('title', 'like', "%{$this->search_term}%")
+                                ->orWhere('description', 'like', "%{$this->search_term}%")
+                                ->orWhere('content', 'like', "%{$this->search_term}%");
+                        })->with('Images')
+                        ->withCount('Upvotes', 'AllComments')
+                        ->paginate(20)
+                    : $this->category->Posts()
+                        ->where('content_type_id', '!=', 3)
+                        ->where('content_subtype_id', '!=', 4)
+                        ->where('published', true)
+                        ->where('moderated', false)
+                        ->where(function($query) {
+                            $query->where('title', 'like', "%{$this->search_term}%")
+                                ->orWhere('description', 'like', "%{$this->search_term}%")
+                                ->orWhere('content', 'like', "%{$this->search_term}%");
+                        })->with('Images')
+                        ->withCount('Upvotes', 'AllComments')
+                        ->paginate(20));
+            return view('livewire.post-list')->with(['posts' => $posts]);
         }
     }

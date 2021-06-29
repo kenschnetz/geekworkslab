@@ -3,6 +3,7 @@
     namespace Database\Seeders;
 
     use Illuminate\Database\Seeder;
+    use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\DB;
 
     class Images extends Seeder {
@@ -15,19 +16,31 @@
             DB::table('images')->insert([
                 [
                     'user_id' => 1,
-                    'path' => '/storage/post-images/amulet-of-awesomeness.jpeg'
+                    'name' => 'amulet-of-awesomeness',
+                    'path' => '/storage/post-images/amulet-of-awesomeness.jpeg',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],
                 [
                     'user_id' => 2,
-                    'path' => '/storage/post-images/5-headed-dragon.jpeg'
+                    'name' => '5 headed dragon',
+                    'path' => '/storage/post-images/5-headed-dragon.jpeg',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],
                 [
                     'user_id' => 3,
-                    'path' => '/storage/post-images/midtown-mystery.jpeg'
+                    'name' => 'Midtown Mystery',
+                    'path' => '/storage/post-images/midtown-mystery.jpeg',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],
                 [
                     'user_id' => 2,
-                    'path' => '/storage/post-images/hydra.jpeg'
+                    'name' => 'hydra',
+                    'path' => '/storage/post-images/hydra.jpeg',
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ],
             ]);
         }

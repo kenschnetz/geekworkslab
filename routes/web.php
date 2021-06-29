@@ -2,6 +2,7 @@
 
     use App\Models\Category as CategoryModel;
     use App\Models\Post as PostModel;
+    use App\Models\User as UserModel;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Str;
 
@@ -16,6 +17,8 @@
     |
     */
 
+    require __DIR__ . '/auth.php';
+
     Route::get('/profile/{user_id?}', function ($user_id = null) {
         return view('components.layout', [
             'name' => 'Profile',
@@ -24,7 +27,21 @@
         ]);
     })->name('profile');
 
-    require __DIR__ . '/auth.php';
+    Route::get('/account', function () {
+        return view('components.layout', [
+            'name' => 'Account',
+            'view' => 'account',
+            'properties' => []
+        ]);
+    })->name('account');
+
+    Route::get('/collections/{user_id?}', function ($user_id = null) {
+        return view('components.layout', [
+            'name' => 'Your Collections',
+            'view' => 'collections',
+            'properties' => ['user_id' => $user_id]
+        ]);
+    })->name('collections');
 
     Route::get('/dashboard', function () {
         return view('components.layout', [
@@ -34,6 +51,23 @@
         ]);
     })->name('dashboard')->middleware('auth');
 
+    Route::get('/post/{post_id?}', function ($post_id = null) {
+        return view('components.layout', [
+            'name' => (empty($post_id) ? 'Create' : 'Edit') . ' Post',
+            'view' => 'post-edit',
+            'properties' => ['post_id' => $post_id]
+        ]);
+    })->name('post-edit')->middleware('auth');
+
+    Route::get('/forum', function () {
+        return view('components.layout', [
+            'name' => 'Community Forum',
+            'view' => 'forum',
+            'properties' => []
+        ]);
+    })->name('forum')->middleware('auth');
+
+
     Route::get('/', function () {
         return view('components.layout', [
             'name' => 'Latest Submissions',
@@ -41,6 +75,21 @@
             'properties' => []
         ]);
     })->name('home');
+
+    Route::get('/author-posts/{user_id}', function ($user_id) {
+        $user = UserModel::where('id', $user_id)->first();
+        if (empty($user)) {
+            abort('404');
+        }
+        return view('components.layout', [
+            'name' => Str::plural($user->name) . ' Posts',
+            'view' => 'post-list',
+            'properties' => [
+                'user_posts_only' => true,
+                'user_id' => $user->id
+            ]
+        ]);
+    })->name('author-posts');
 
     Route::get('/{category_slug}', function ($category_slug) {
         $category = CategoryModel::where('slug', $category_slug)->first();

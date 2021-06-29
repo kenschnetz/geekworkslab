@@ -34,8 +34,8 @@
                                 <x-dropdown-link href="{{ route('category', ['category_slug' => 'abilities']) }}">
                                     {{ __('Abilities') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('category', ['category_slug' => 'art']) }}">
-                                    {{ __('Art') }}
+                                <x-dropdown-link href="{{ route('category', ['category_slug' => 'misc']) }}">
+                                    {{ __('Misc') }}
                                 </x-dropdown-link>
                             </div>
                         </x-slot>
@@ -44,7 +44,7 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link :href="route('forum')" :active="request()->routeIs('forum')">
                             {{ __('Forum') }}
                         </x-nav-link>
                     @endauth
@@ -65,6 +65,12 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('profile')">
+                                {{ __('Profile') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('account')">
+                                {{ __('Account') }}
+                            </x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

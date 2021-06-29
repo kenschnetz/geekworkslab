@@ -15,11 +15,10 @@
                 $table->id();
                 $table->foreignId('user_id');
                 $table->foreignId('post_id')->nullable();
+                $table->foreignId('content_type_id');
+                $table->foreignId('content_subtype_id');
                 $table->foreignId('system_id');
                 $table->foreignId('category_id')->nullable();
-                $table->integer('type')->default(0)->comment('0 = standard, 2 = art, 3 = forum');
-                $table->integer('subtype')->default(0)->comment('0 = original, 1 = conversion (standard only), 2 = contribution (standard only), 3 = clone (art only)');
-                $table->integer('art_subtype')->default(0)->comment('0 = original, 2 = clone');
                 $table->boolean('locked')->default(true)->comment('For art posts, determine if other users may clone this art for use in a standard post');
                 $table->boolean('published')->default(false);
                 $table->boolean('moderated')->default(false)->comment('When set to true, this post has been moderated and hidden from view by anyone but the owner, moderators and admins');
@@ -30,6 +29,8 @@
                 $table->timestamps();
                 $table->softDeletes();
                 $table->foreign('user_id')->onDelete('cascade')->references('id')->on('users');
+                $table->foreign('content_type_id')->onDelete('cascade')->references('id')->on('content_types');
+                $table->foreign('content_subtype_id')->onDelete('cascade')->references('id')->on('content_subtypes');
                 $table->foreign('post_id')->onDelete('cascade')->references('id')->on('posts');
                 $table->foreign('system_id')->onDelete('cascade')->references('id')->on('systems');
                 $table->foreign('category_id')->onDelete('cascade')->references('id')->on('categories');

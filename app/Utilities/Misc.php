@@ -4,7 +4,9 @@
 	namespace App\Utilities;
 
 
-	use Carbon\Carbon;
+	use App\Models\Post;
+    use Carbon\Carbon;
+    use Str;
 
     class Misc {
         public function ShortenBigNumber($number): string {
@@ -38,5 +40,14 @@
                 $value .= ' ' . $days . 'd';
             }
             return empty($value) ? 'Today' : $value;
+        }
+
+        public function GenerateUniqueSlug($title) {
+            $slug = Str::slug($title);
+            $counter = 1;
+            while(Post::where('slug', $counter > 1 ? $slug . '-' . $counter : $slug)->exists()) {
+                $counter++;
+            }
+            return $slug . '-' . $counter;
         }
 	}

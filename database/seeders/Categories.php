@@ -34,9 +34,9 @@
                     'description' => 'RPG abilities such as spells, traits, etc.'
                 ],
                 [
-                    'name' => 'Art',
-                    'slug' => 'art',
-                    'description' => 'RPG art'
+                    'name' => 'Misc',
+                    'slug' => 'misc',
+                    'description' => 'Everything else!'
                 ],
             ]);
         }
