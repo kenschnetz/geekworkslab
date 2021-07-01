@@ -3,27 +3,34 @@
     namespace App\Models;
 
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\SoftDeletes;
 
     class PostComment extends Model {
+        use SoftDeletes;
+
         protected $guarded = ['id'];
 
-	    public function User() {
-            return $this->belongsTo('App\Models\User');
+        public function User() {
+            return $this->belongsTo(User::class);
         }
 
         public function Post() {
-            return $this->belongsTo('App\Models\Post');
+            return $this->belongsTo(Post::class);
         }
 
-        public function PostComment() {
-            return $this->belongsTo('App\Models\PostComment')->with('User');
+        public function Comment() {
+            return $this->belongsTo(PostComment::class);
         }
 
-        public function PostComments() {
-            return $this->hasMany('App\Models\PostComment')->with('User', 'PostComments', 'PostComment');
+        public function Comments() {
+            return $this->hasMany(PostComment::class)->with('Comments');
         }
 
-        public function PostCommentRatings() {
-            return $this->hasMany('App\Models\PostComment');
+        public function Replies() {
+            return $this->hasMany(PostComment::class)->with('Replies');
+        }
+
+        public function Upvotes() {
+            return $this->hasMany(PostCommentUpvote::class);
         }
     }

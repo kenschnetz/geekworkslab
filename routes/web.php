@@ -1,6 +1,10 @@
 <?php
 
+    use App\Models\Category as CategoryModel;
+    use App\Models\Post as PostModel;
+    use App\Models\User as UserModel;
     use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Str;
 
     /*
     |--------------------------------------------------------------------------
@@ -13,34 +17,110 @@
     |
     */
 
+    require __DIR__ . '/auth.php';
+
+//    Route::get('/test', function () {
+//        return view('components.layout', [
+//            'name' => 'Test',
+//            'view' => 'selectable-grid',
+//            'properties' => []
+//        ]);
+//    })->name('test');
+
+    Route::get('/profile/{user_id?}', function ($user_id = null) {
+        return view('components.layout', [
+            'name' => 'Profile',
+            'view' => 'profile',
+            'properties' => ['user_id' => $user_id]
+        ]);
+    })->name('profile');
+
+    Route::get('/account', function () {
+        return view('components.layout', [
+            'name' => 'Account',
+            'view' => 'account',
+            'properties' => []
+        ]);
+    })->name('account');
+
+    Route::get('/collections/{user_id?}', function ($user_id = null) {
+        return view('components.layout', [
+            'name' => 'Your Collections',
+            'view' => 'collections',
+            'properties' => ['user_id' => $user_id]
+        ]);
+    })->name('collections');
+
     Route::get('/dashboard', function () {
-        return view('components.layout', ['name' => 'Dashboard', 'view' => 'dashboard', 'properties' => []]);
-    })->name('dashboard')->middleware('auth');;
-
-    Route::get('/', function () {
-        return view('components.layout', ['name' => 'Latest Submissions', 'view' => 'home', 'properties' => []]);
-    })->name('home');
-
-    Route::get('/items', function () {
-        return view('components.layout', ['name' => 'Latest Items', 'view' => 'items', 'properties' => []]);
-    })->name('items');
-
-    Route::get('/monsters', function () {
-        return view('components.layout', ['name' => 'Latest Monsters', 'view' => 'monsters', 'properties' => []]);
-    })->name('monsters');
-
-    Route::get('/hooks', function () {
-        return view('components.layout', ['name' => 'Latest Hooks', 'view' => 'hooks', 'properties' => []]);
-    })->name('hooks');
-
-    Route::get('/abilities', function () {
-        return view('components.layout', ['name' => 'Latest Abilities', 'view' => 'abilities', 'properties' => []]);
-    })->name('abilities');
-
-    Route::get('/art', function () {
-        return view('components.layout', ['name' => 'Latest Art', 'view' => 'art', 'properties' => []]);
-    })->name('art');
+        return view('components.layout', [
+            'name' => 'Dashboard',
+            'view' => 'dashboard',
+            'properties' => []
+        ]);
+    })->name('dashboard')->middleware('auth');
 
     Route::get('/post/{post_id?}', function ($post_id = null) {
-        return view('components.layout', ['name' => 'Post', 'view' => 'post', 'properties' => ['post_id' => $post_id]]);
+        return view('components.layout', [
+            'name' => (empty($post_id) ? 'Create' : 'Edit') . ' Post',
+            'view' => 'post-edit',
+            'properties' => ['post_id' => $post_id]
+        ]);
+    })->name('post-edit')->middleware('auth');
+
+    Route::get('/forum', function () {
+        return view('components.layout', [
+            'name' => 'Community Forum',
+            'view' => 'forum',
+            'properties' => []
+        ]);
+    })->name('forum')->middleware('auth');
+
+
+    Route::get('/', function () {
+        return view('components.layout', [
+            'name' => 'Latest Submissions',
+            'view' => 'post-list',
+            'properties' => []
+        ]);
+    })->name('home');
+
+    Route::get('/author-posts/{user_id}', function ($user_id) {
+        $user = UserModel::where('id', $user_id)->first();
+        if (empty($user)) {
+            abort('404');
+        }
+        return view('components.layout', [
+            'name' => Str::plural($user->name) . ' Posts',
+            'view' => 'post-list',
+            'properties' => [
+                'user_posts_only' => true,
+                'user_id' => $user->id
+            ]
+        ]);
+    })->name('author-posts');
+
+    Route::get('/{category_slug}', function ($category_slug) {
+        $category = CategoryModel::where('slug', $category_slug)->first();
+        if (empty($category)) {
+            abort('404');
+        }
+        return view('components.layout', [
+            'name' => 'Latest ' . $category->name,
+            'view' => 'post-list',
+            'properties' => [
+                'category' => $category
+            ]
+        ]);
+    })->name('category');
+
+    Route::get('/{category_slug}/{post_slug}', function ($category_slug, $post_slug) {
+        $post = PostModel::where('slug', $post_slug)->with('Category')->first();
+        if (!CategoryModel::where('slug', $category_slug)->exists() || empty($post)) {
+            abort('404');
+        }
+        return view('components.layout', [
+            'name' => Str::singular($post->Category->name) . ": " . $post->title,
+            'view' => 'post-view',
+            'properties' => ['post_slug' => $post_slug]
+        ]);
     })->name('post');

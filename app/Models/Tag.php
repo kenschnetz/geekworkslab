@@ -6,8 +6,9 @@
 
     class Tag extends Model {
         protected $guarded = ['id'];
+        public $timestamps = false;
 
         public function Posts() {
-            return $this->hasMany('App\Models\Post');
+            return $this->belongsToMany(Post::class, 'post_tags');
         }
     }

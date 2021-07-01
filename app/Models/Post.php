@@ -3,35 +3,79 @@
     namespace App\Models;
 
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\SoftDeletes;
 
     class Post extends Model {
+        use SoftDeletes;
+
         protected $guarded = ['id'];
 
         public function User() {
-            return $this->belongsTo('App\Models\User');
+            return $this->belongsTo(User::class);
         }
 
         public function Post() {
-            return $this->belongsTo('App\Models\Post');
+            return $this->belongsTo(Post::class);
         }
 
-        public function PostVotes() {
-            return $this->hasMany('App\Models\PostVote');
+        public function ContentType() {
+            return $this->belongsTo(ContentType::class);
         }
 
-        public function PostCategories() {
-            return $this->hasMany('App\Models\PostCategory')->with('Category');
+        public function ContentSubtype() {
+            return $this->belongsTo(ContentSubtype::class);
         }
 
-        public function PostTags() {
-            return $this->hasMany('App\Models\PostTag')->with('Tag');
+        public function System() {
+            return $this->belongsTo(System::class);
         }
 
-        public function PostMetas() {
-            return $this->hasMany('App\Models\PostMeta');
+        public function Posts() {
+            return $this->hasMany(Post::class);
         }
 
-        public function PostComments() {
-            return $this->hasMany('App\Models\PostComment')->whereNull('post_comment_id')->with('User', 'PostComments')->orderBy('created_at', 'desc');
+        public function Category() {
+            return $this->belongsTo(Category::class);
+        }
+
+        public function Tags() {
+            return $this->belongsToMany(Tag::class, 'post_tags');
+        }
+
+        public function Images() {
+            return $this->belongsToMany(Image::class, 'post_images');
+        }
+
+        public function Attributes() {
+            return $this->hasMany(PostAttribute::class)->with('Attribute');
+        }
+
+        public function Contributors() {
+            return $this->belongsToMany(User::class, 'post_contributors');
+        }
+
+        public function Comments() {
+            return $this->hasMany(PostComment::class)
+                ->whereNull('post_comment_id')
+                ->with('Comments')
+                ->withCount('Comments')
+                ->withCount('Upvotes')
+                ->orderBy('created_at', 'desc');
+        }
+
+        public function AllComments() {
+            return $this->hasMany(PostComment::class);
+        }
+
+        public function Upvotes() {
+            return $this->hasMany(PostUpvote::class);
+        }
+
+        public function Reports() {
+            return $this->hasMany(ReportedPost::class);
+        }
+
+        public function Collections() {
+            return $this->belongsToMany(Collection::class, 'collection_posts');
         }
     }
