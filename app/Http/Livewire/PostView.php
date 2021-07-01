@@ -71,9 +71,13 @@
             return (new MiscUtilities)->ShortenDate($created_at);
         }
 
+        public function DeletePost($id) {
+            PostModel::where('id', $id)->delete();
+        }
+
         public function Render() {
             $post = PostModel::where('slug', $this->post_slug)
-                ->with('User', 'Images', 'Contributors', 'Tags', 'PostAttributes', 'Upvotes')
+                ->with('User', 'Images', 'Contributors', 'Tags', 'Attributes', 'Upvotes')
                 ->withCount('AllComments', 'Upvotes')
                 ->first();
             $this->post_id = $post->id;

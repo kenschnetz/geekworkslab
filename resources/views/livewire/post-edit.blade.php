@@ -57,9 +57,9 @@
                         <p class="italic">
                             Selected Images:
                         </p>
-                        <div class="font-md my-3 flex flex-row">
+                        <div class="font-md my-3 grid w-full sm:grid-cols-2 md:grid-cols-4 gap-1">
                             @foreach($selected_images as $selected_image)
-                                <div class="w-1/6">
+                                <div>
                                     <div style="background-image: url({{$selected_image['path']}});" class="image-management-square object-cover cursor-pointer border"></div>
                                 </div>
                             @endforeach
@@ -69,7 +69,7 @@
                             No Images selected
                         </p>
                     @endif
-                    <a x-on:click="showImageManagementModal = true" class="w-1/6 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                    <a x-on:click="showImageManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
                         Manage Images
                     </a>
                 </div>
@@ -79,9 +79,9 @@
                         <p class="italic">
                             Selected Tags:
                         </p>
-                        <div class="font-md my-3 flex flex-row gap-1">
+                        <div class="font-md my-3 grid md:grid-cols-4 gap-1">
                             @foreach($selected_tags as $selected_tag)
-                                <div class="w-1/6 font-bold p-3 border text-center">
+                                <div class="font-bold p-3 border text-center">
                                     {{$selected_tag['name']}}
                                 </div>
                             @endforeach
@@ -91,7 +91,7 @@
                             No Tags selected
                         </p>
                     @endif
-                    <a x-on:click="showTagManagementModal = true" class="w-1/6 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                    <a x-on:click="showTagManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
                         Manage Tags
                     </a>
                 </div>
@@ -101,10 +101,11 @@
                         <p class="italic">
                             Selected Attributes:
                         </p>
-                        <div class="font-md my-3 flex flex-row">
+                        <div class="font-md my-3 grid lg:grid-cols-2 gap-1">
                             @foreach($selected_attributes as $index => $selected_attribute)
-                                <div class="w-full md:w-1/2 p-3 border text-center flex content-center items-center" wire:key="selected-attribute-{{$selected_attribute['id']}}">
-                                    <span class="font-bold flex-none align-middle">{{$selected_attribute['name']}}</span>:<input class="ml-3 flex-grow" type="text" wire:model.lazy="selected_attributes.{{$index}}.value" placeholder="{{$selected_attribute['name']}} value"/>
+                                <div class="p-3 border text-center" wire:key="selected-attribute-{{$selected_attribute['id']}}">
+                                    <div class="font-bold my-1">{{$selected_attribute['name']}}</div>
+                                    <input class="w-full" type="text" wire:model.lazy="selected_attributes.{{$index}}.value" placeholder="{{$selected_attribute['name']}} value"/>
                                 </div>
                             @endforeach
                         </div>
@@ -113,7 +114,7 @@
                             No Attributes selected
                         </p>
                     @endif
-                    <a x-on:click="showAttributeManagementModal = true" class="w-1/6 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                    <a x-on:click="showAttributeManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
                         Manage Attributes
                     </a>
                 </div>
@@ -136,7 +137,7 @@
             <hr class="mt-4"/>
             <div class="flex items-rightr mt-4">
                 <button type="submit" class="inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
-                    Create Post
+                    {{ empty($post_id) ? 'Create' : 'Update' }} Post
                 </button>
             </div>
         </form>
@@ -257,7 +258,7 @@
                     <hr class="my-3" />
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-1">
                         @foreach($attributes as $attribute)
-                            <div wire:click="ToggleAttribute({{$attribute}})" class="cursor-pointer p-3 text-center font-bold {{ empty($selected_attribute[$attribute->id]) ? 'border' : 'border-2 border-indigo-800' }}">
+                            <div wire:click="ToggleAttribute({{$attribute}})" class="cursor-pointer p-3 text-center font-bold {{ empty($selected_attributes[$attribute->id]) ? 'border' : 'border-2 border-indigo-800' }}">
                                 {{ $attribute->name }}
                             </div>
                         @endforeach

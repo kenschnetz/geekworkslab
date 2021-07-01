@@ -25,17 +25,20 @@
         use WithPagination;
         use WithFileUploads;
 
-        public int|null $post_id;
+        public $post_id;
         public $post;
         public Collection $content_types;
         public Collection $content_subtypes;
         public Collection $systems;
         public Collection $categories;
         public array $selected_images = [];
+        public array $removed_images = [];
         public int $max_images_allowed = 4;
         public array $selected_tags = [];
+        public array $removed_tags = [];
         public int $max_tags_allowed = 6;
         public array $selected_attributes = [];
+        public array $removed_attributes = [];
         public int $max_attributes_allowed = 12;
         public bool $showImageManagementModal = false;
         public bool $showTagManagementModal = false;
@@ -59,7 +62,7 @@
             $this->content_subtypes = ContentSubtypeModel::all();
             $this->systems = SystemModel::all();
             $this->categories = CategoryModel::all();
-            if (empty($post_id)) {
+            if (empty($this->post_id)) {
                 $this->post = new PostModel;
                 $this->post->user_id = Auth::id();
                 $this->post->content_type_id = null;
@@ -70,18 +73,47 @@
                 $this->post->published = true;
                 $this->post->title = '';
                 $this->post->slug = '';
+                $this->post->slug = '';
                 $this->post->description = '';
                 $this->post->content = '';
             } else {
-                $this->post = PostModel::where('id', $this->post_id)->first();
-                $this->selected_images = $this->post->PostImages();
-                $this->selected_tags = $this->post->PostTags();
-                $this->selected_attributes = $this->post->PostAttributes();
+                $this->post = PostModel::where('id', $this->post_id)->with('Category')->first();
+                $selected_images = $this->post->Images()->get();
+                foreach($selected_images as $selected_image) {
+                    $this->selected_images[$selected_image->id] = $selected_image;
+                }
+                $selected_tags = $this->post->Tags()->get();
+                foreach($selected_tags as $selected_tag) {
+                    $this->selected_tags[$selected_tag->id] = $selected_tag;
+                }
+                $selected_attributes = $this->post->Attributes()->get();
+                foreach($selected_attributes as $selected_attribute) {
+                    $attribute = [
+                        'id' => $selected_attribute->Attribute->id,
+                        'name' => $selected_attribute->Attribute->name,
+                        'description' => $selected_attribute->Attribute->description,
+                        'value' => $selected_attribute->value,
+                    ];
+                    $this->selected_attributes[$attribute['id']] = $attribute;
+                }
             }
         }
 
         public function SavePost() {
-            $this->post->slug = (new Misc)->GenerateUniqueSlug($this->post->title);
+            if (!empty($this->post->id)) {
+                foreach($this->removed_images as $removed_image) {
+                    PostImageModel::where('post_id', $this->post->id)->where('image_id', $removed_image['id'])->delete();
+                }
+                foreach($this->removed_tags as $removed_tag) {
+                    PostTagModel::where('post_id', $this->post->id)->where('tag_id', $removed_tag['id'])->delete();
+                }
+                foreach($this->removed_attributes as $removed_attribute) {
+                    PostAttributeModel::where('post_id', $this->post->id)->where('attribute_id', $removed_attribute['id'])->delete();
+                }
+            }
+            if (empty($this->post->slug)) {
+                $this->post->slug = (new Misc)->GenerateUniqueSlug($this->post->title);
+            }
             $this->validate();
             $this->post->save();
             foreach($this->selected_images as $selected_image) {
@@ -102,10 +134,11 @@
                     ['post_id' => $this->post->id, 'attribute_id' => $selected_attribute['id'], 'value' => $selected_attribute['value']]
                 );
             }
+            return redirect()->route( 'post', ['category_slug' => $this->post->Category->slug, 'post_slug' => $this->post->slug]);
         }
 
         public function ToggleImage($image) {
-            $this->selected_images = $this->ToggleItem($image, $this->selected_images, $this->max_images_allowed);
+            $this->selected_images = $this->ToggleItem($image, $this->selected_images, $this->max_images_allowed, 0);
         }
 
         public function UploadImage() {
@@ -123,7 +156,7 @@
         }
 
         public function ToggleTag($tag) {
-            $this->selected_tags = $this->ToggleItem($tag, $this->selected_tags, $this->max_tags_allowed);
+            $this->selected_tags = $this->ToggleItem($tag, $this->selected_tags, $this->max_tags_allowed, 1);
         }
 
         public function CreateTag() {
@@ -139,7 +172,7 @@
         }
 
         public function ToggleAttribute($attribute) {
-            $this->selected_attributes = $this->ToggleItem($attribute, $this->selected_attributes, $this->max_attributes_allowed);
+            $this->selected_attributes = $this->ToggleItem($attribute, $this->selected_attributes, $this->max_attributes_allowed, 2);
         }
 
         public function CreateAttribute() {
@@ -193,14 +226,32 @@
             ];
         }
 
-        private function ToggleItem($item, $array, $max_allowed) {
+        private function ToggleItem($item, $array, $max_allowed, $item_type) {
             if (empty($array[$item['id']])) {
                 if (count($array) < $max_allowed) {
                     $array[$item['id']] = $item;
+                    $this->RestoreItem($item, $item_type);
                 }
             } else {
                 unset($array[$item['id']]);
+                $this->RemoveItem($item, $item_type);
             }
             return $array;
+        }
+
+        private function RemoveItem($item, $item_type) {
+            switch($item_type) {
+                case 0: $this->removed_images[$item['id']] = $item; break;
+                case 1: $this->removed_tags[$item['id']] = $item; break;
+                default: $this->removed_attributes[$item['id']] = $item;
+            }
+        }
+
+        private function RestoreItem($item, $item_type) {
+            switch($item_type) {
+                case 0: unset($this->removed_images[$item['id']]); break;
+                case 1: unset($this->removed_tags[$item['id']]); break;
+                default: unset($this->removed_attributes[$item['id']]);;
+            }
         }
     }

@@ -21,10 +21,10 @@
             <p>
                 {{ $post->content }}
             </p>
-            @if(count($post->PostAttributes) > 0)
+            @if(count($post->Attributes) > 0)
                 <hr class="my-3" />
                 <div class="grid grid-cols-3 gap-4">
-                    @foreach($post->PostAttributes as $attribute)
+                    @foreach($post->Attributes as $attribute)
                         <div class="flex p-3 border items-center">
                             <span><strong>{{ $attribute->Attribute->name }}</strong>: {{ $attribute->value }}</span>
                         </div>
@@ -37,10 +37,28 @@
             <p>
                 <strong>Tags:</strong>
                 @foreach($post->Tags as $tag)
-                    <span><a href="#" class="underline">{{ $tag->name }}</a>{{($loop->last ? '' : ', ') }}</span>
+                    <span>{{ $tag->name }}{{($loop->last ? '' : ', ') }}</span>
                     {{--TODO: send user to a search page when tag is clicked--}}
                 @endforeach
             </p>
+        @endif
+        @if(Auth::id() === $post->user_id)
+            <hr class="my-3" />
+            <p class="italic mb-3">
+                Author tools:
+            </p>
+            <div x-data="{ deleting: false }" x-cloak>
+                <div x-show="!deleting">
+                    <a href="{{ route('post-edit', ['post_id' => $post->id]) }}" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">Edit</a>
+                    .
+                    <a class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-red-800" x-on:click="deleting = true">Delete</a>
+                </div>
+                <div x-show="deleting">
+                    <a class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-green-500" x-on:click="deleting = false">Cancel</a>
+                    .
+                    <a class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-red-800" wire:click="DeletePost({{$post->id}})">Confirm Delete</a>
+                </div>
+            </div>
         @endif
     </div>
     <div id="comments" class="mt-8 p-3 md:px-6 md:py-4 bg-white shadow rounded flex flex-col">

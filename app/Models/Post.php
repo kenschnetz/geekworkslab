@@ -46,7 +46,7 @@
             return $this->belongsToMany(Image::class, 'post_images');
         }
 
-        public function PostAttributes() {
+        public function Attributes() {
             return $this->hasMany(PostAttribute::class)->with('Attribute');
         }
 
