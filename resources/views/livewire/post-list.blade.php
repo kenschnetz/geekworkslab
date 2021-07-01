@@ -9,25 +9,25 @@
                 <div class="flex items-center p-4 cursor-pointer hover:bg-gray-100" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">
                     <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image" />
                     <div class="w-full">
-                        <p class="text-center md:text-left text-lg font-bold underline">
+                        <div class="text-center md:text-left text-lg font-bold underline">
                             {{ $post->title }}
-                        </p>
-                        <p class="text-center md:text-left text-lg italic">
+                        </div>
+                        <div class="text-center md:text-left text-lg italic">
                             {{$post->description}}
-                        </p>
-                        <p class="md:hidden">
+                        </div>
+                        <div class="md:hidden">
                             <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
-                        </p>
+                        </div>
                         <hr class="my-1 border-gray-100 hidden md:block" />
-                        <p class="py-0 md:py-1 mt-3 md:mt-0 text-center md:text-left text-sm">
+                        <div class="py-0 md:py-1 mt-3 md:mt-0 text-center md:text-left text-sm">
                             By {{ $post->User->name }}<span class="mx-3">|</span>
                             {{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}<span class="mx-3">|</span>
                             {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
-                        </p>
+                        </div>
                         <hr class="my-3 md:my-1 border-gray-100" />
-                        <p class="py-1">
+                        <div class="py-1">
                             <span>{!! Str::limit($post->content, 100) !!}</span>
-                        </p>
+                        </div>
                     </div>
                 </div>
             @endforeach
