@@ -26,10 +26,7 @@
                         </p>
                         <hr class="my-3 md:my-1 border-gray-100" />
                         <p class="py-1">
-                            <span class="hidden xl:block">{{ Str::limit($post->content, 240) }}</span>
-                            <span class="hidden lg:block xl:hidden">{{ Str::limit($post->content, 180) }}</span>
-                            <span class="hidden md:block lg:hidden">{{ Str::limit($post->content, 100) }}</span>
-                            <span class="md:hidden">{{ Str::limit($post->content, 300) }}</span>
+                            <span>{!! Str::limit($post->content, 100) !!}</span>
                         </p>
                     </div>
                 </div>
