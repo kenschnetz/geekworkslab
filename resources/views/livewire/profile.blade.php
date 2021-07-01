@@ -19,7 +19,7 @@
                             Upvotes
                         </dt>
                         <dd class="mt-1 text-3xl font-bold text-gray-900">
-                            {{$user->posts_count + $user->comments_count}}
+                            {{$user->post_upvotes_count + $user->comment_upvotes_count}}
                         </dd>
                     </div>
                     <div class="p-4 bg-white shadow rounded-lg overflow-hidden sm:p-6">
