@@ -28,98 +28,96 @@
                     </div>
                 </div>
             @endif
-{{--            @if(!empty($post->content_type_id) && $post->content_type_id != 3)--}}
-                <div class="mt-4 w-full">
-                    <select class="form-control mt-1 w-full" name="system" wire:model="post.system_id">
-                        <option value="null">Select System</option>
-                        @foreach ($systems as $system)
-                            <option value="{{ $system->id }}">
-                                {{ $system->name }}
-                            </option>
+            <div class="mt-4 w-full">
+                <select class="form-control mt-1 w-full" name="system" wire:model="post.system_id">
+                    <option value="null">Select System</option>
+                    @foreach ($systems as $system)
+                        <option value="{{ $system->id }}">
+                            {{ $system->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('post.system_id') <span class="text-red-500">System is required</span> @enderror
+            </div>
+            <div class="mt-4 w-full">
+                <select class="form-control mt-1 w-full" name="category" wire:model="post.category_id">
+                    <option value="null">Select Category</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('post.category_id') <span class="text-red-500">Category is required</span> @enderror
+            </div>
+            <hr class="my-3" />
+            <div>
+                <div class="font-bold text-lg">
+                    Images
+                </div>
+                @if(count($selected_images) > 0)
+                    <div class="font-md my-3 grid w-full sm:grid-cols-2 md:grid-cols-4 gap-1">
+                        @foreach($selected_images as $selected_image)
+                            <div>
+                                <div style="background-image: url({{$selected_image['path']}});" class="image-management-square object-cover cursor-pointer border"></div>
+                            </div>
                         @endforeach
-                    </select>
-                    @error('post.system_id') <span class="text-red-500">System is required</span> @enderror
+                    </div>
+                @else
+                    <p class="italic my-3">
+                        No Images selected
+                    </p>
+                @endif
+                <a x-on:click="showImageManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                    Manage Images
+                </a>
+            </div>
+            <hr class="my-3" />
+            <div>
+                <div class="font-bold text-lg">
+                    Tags
                 </div>
-                <div class="mt-4 w-full">
-                    <select class="form-control mt-1 w-full" name="category" wire:model="post.category_id">
-                        <option value="null">Select Category</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">
-                                {{ $category->name }}
-                            </option>
+                @if(count($selected_tags) > 0)
+                    <div class="font-md my-3 grid md:grid-cols-4 gap-1">
+                        @foreach($selected_tags as $selected_tag)
+                            <div class="font-bold p-3 border text-center">
+                                {{$selected_tag['name']}}
+                            </div>
                         @endforeach
-                    </select>
-                    @error('post.category_id') <span class="text-red-500">Category is required</span> @enderror
-                </div>
-                <hr class="my-3" />
-                <div>
-                    <div class="font-bold text-lg">
-                        Images
                     </div>
-                    @if(count($selected_images) > 0)
-                        <div class="font-md my-3 grid w-full sm:grid-cols-2 md:grid-cols-4 gap-1">
-                            @foreach($selected_images as $selected_image)
-                                <div>
-                                    <div style="background-image: url({{$selected_image['path']}});" class="image-management-square object-cover cursor-pointer border"></div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <p class="italic my-3">
-                            No Images selected
-                        </p>
-                    @endif
-                    <a x-on:click="showImageManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
-                        Manage Images
-                    </a>
+                @else
+                    <p class="italic my-3">
+                        No Tags selected
+                    </p>
+                @endif
+                <a x-on:click="showTagManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                    Manage Tags
+                </a>
+            </div>
+            <hr class="my-3" />
+            <div>
+                <div class="font-bold text-lg">
+                    Attributes
                 </div>
-                <hr class="my-3" />
-                <div>
-                    <div class="font-bold text-lg">
-                        Tags
+                @if(count($selected_attributes) > 0)
+                    <div class="font-md my-3 grid lg:grid-cols-2 gap-1">
+                        @foreach($selected_attributes as $index => $selected_attribute)
+                            <div class="p-3 border text-center" wire:key="selected-attribute-{{$selected_attribute['id']}}">
+                                <div class="font-bold my-1">{{$selected_attribute['name']}}</div>
+                                <input class="w-full" type="text" wire:model.lazy="selected_attributes.{{$index}}.value" placeholder="{{$selected_attribute['name']}} value"/>
+                            </div>
+                        @endforeach
                     </div>
-                    @if(count($selected_tags) > 0)
-                        <div class="font-md my-3 grid md:grid-cols-4 gap-1">
-                            @foreach($selected_tags as $selected_tag)
-                                <div class="font-bold p-3 border text-center">
-                                    {{$selected_tag['name']}}
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <p class="italic my-3">
-                            No Tags selected
-                        </p>
-                    @endif
-                    <a x-on:click="showTagManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
-                        Manage Tags
-                    </a>
-                </div>
-                <hr class="my-3" />
-                <div>
-                    <div class="font-bold text-lg">
-                        Attributes
-                    </div>
-                    @if(count($selected_attributes) > 0)
-                        <div class="font-md my-3 grid lg:grid-cols-2 gap-1">
-                            @foreach($selected_attributes as $index => $selected_attribute)
-                                <div class="p-3 border text-center" wire:key="selected-attribute-{{$selected_attribute['id']}}">
-                                    <div class="font-bold my-1">{{$selected_attribute['name']}}</div>
-                                    <input class="w-full" type="text" wire:model.lazy="selected_attributes.{{$index}}.value" placeholder="{{$selected_attribute['name']}} value"/>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <p class="italic my-3">
-                            No Attributes selected
-                        </p>
-                    @endif
-                    <a x-on:click="showAttributeManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
-                        Manage Attributes
-                    </a>
-                </div>
-                <hr class="my-3" />
-{{--            @endif--}}
+                @else
+                    <p class="italic my-3">
+                        No Attributes selected
+                    </p>
+                @endif
+                <a x-on:click="showAttributeManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                    Manage Attributes
+                </a>
+            </div>
+            <hr class="my-3" />
             <div class="mt-4 w-full">
                 <input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="post.title" placeholder="Title">
                 @error('post.title') <span class="text-red-500">This field is required!</span> @enderror

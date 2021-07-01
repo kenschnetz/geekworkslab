@@ -14,7 +14,7 @@
                 </div>
                 <hr class="my-3" />
             @else
-                @if(!empty(optional($post->Images->first())))
+                @if(!empty($post->Images->first()))
                     <p class="md:hidden">
                         <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
                     </p>
@@ -33,15 +33,18 @@
                     @endif
                 </p>
                 <hr class="my-3" />
-                @if(!empty(optional($post->Images->first())))
+                @if(!empty($post->Images->first()))
                     <img class="hidden md:block w-full md:w-1/3 float-left mr-4 mb-1 border" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
                 @endif
             @endif
-            <p>
+            <div class="font-md">
                 {{ $post->content }}
-            </p>
+            </div>
             @if(count($post->Attributes) > 0)
                 <hr class="my-3" />
+                <div class="font-bold text-lg my-3">
+                    Attributes
+                </div>
                 <div class="grid grid-cols-3 gap-4">
                     @foreach($post->Attributes as $attribute)
                         <div class="flex p-3 border items-center">
