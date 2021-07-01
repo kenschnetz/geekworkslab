@@ -13,14 +13,14 @@
         public function run() {
             $this->call([
                 Users::class,
-                ContentTypes::class,
-                Systems::class,
-                Categories::class,
-                Tags::class,
-                Attributes::class,
-                Images::class,
-                Posts::class,
-                Badges::class,
+//                ContentTypes::class,
+//                Systems::class,
+//                Categories::class,
+//                Tags::class,
+//                Attributes::class,
+//                Images::class,
+//                Posts::class,
+//                Badges::class,
             ]);
         }
     }
