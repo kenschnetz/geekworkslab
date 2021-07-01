@@ -119,19 +119,24 @@
             </div>
             <hr class="my-3" />
             <div class="mt-4 w-full">
-                <input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="post.title" placeholder="Title">
-                @error('post.title') <span class="text-red-500">This field is required!</span> @enderror
+                <label class="font-bold text-lg">Title
+                    <input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="post.title" placeholder="Title">
+                </label>
+                @error('post.title') <span class="text-red-500">{{$message}}</span> @enderror
             </div>
             <div class="mt-4 w-full">
-                <input id="description" class="block mt-1 w-full" type="text" name="description" wire:model="post.description" placeholder="Description">
-                @error('post.description') <span class="text-red-500">This field is required!</span> @enderror
+                <label class="font-bold text-lg">Description
+                    <input id="description" class="block mt-1 w-full" type="text" name="description" wire:model="post.description" placeholder="Description">
+                </label>
+                @error('post.description') <span class="text-red-500">{{$message}}</span> @enderror
             </div>
-            <div class="mt-4 w-full">
-                <textarea id="content" class="block mt-1 w-full" type="text" name="content" wire:model="post.content" placeholder="Content"></textarea>
-                @error('post.content') <span class="text-red-500">This field is required!</span> @enderror
+            <div class="mt-4 w-full" wire:ignore>
+{{--                <textarea id="content" class="block mt-1 w-full" type="text" name="content" wire:model="post.content" placeholder="Content"></textarea>--}}
+                <label class="font-bold text-lg">Content</label>
+                <hr class="mt-1 mb-2" />
+                <trix-editor x-data x-on:trix-change="$dispatch('input', event.target.value)" wire:model.debounce.1000ms="post.content" wire:key="post-rich-editor"></trix-editor>
+                @error('post.content') <span class="text-red-500">{{$message}}</span> @enderror
             </div>
-            @error('post.user_id') <span class="text-red-500">Valid slug is required!</span> @enderror
-            @error('post.slug') <span class="text-red-500">Valid slug is required!</span> @enderror
             <hr class="mt-4"/>
             <div class="flex items-rightr mt-4">
                 <button type="submit" class="inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">

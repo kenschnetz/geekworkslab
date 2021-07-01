@@ -8,6 +8,7 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         @livewireStyles
+        <link rel="stylesheet" href="https://unpkg.com/trix@1.3.1/dist/trix.css">
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <!-- Scripts -->
@@ -28,5 +29,6 @@
             </main>
         </div>
         @livewireScripts
+        <script src="https://unpkg.com/trix@1.3.1/dist/trix.js"></script>
     </body>
 </html>

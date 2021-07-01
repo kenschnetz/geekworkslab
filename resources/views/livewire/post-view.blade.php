@@ -38,7 +38,7 @@
                 @endif
             @endif
             <div class="font-md">
-                {{ $post->content }}
+                {!! $post->content !!}
             </div>
             @if(count($post->Attributes) > 0)
                 <hr class="my-3" />
