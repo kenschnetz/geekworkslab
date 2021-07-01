@@ -146,7 +146,7 @@
                 'new_image.name' => 'required|string',
                 'new_image.file' => 'required|image',
             ]);
-            $path = $this->new_image['file']->store('/public/post-images');
+            $path = $this->new_image['file']->store('/public/post-images/' . Auth::id());
             ImageModel::create([
                 'user_id' => Auth::id(),
                 'name' => $this->new_image['name'],

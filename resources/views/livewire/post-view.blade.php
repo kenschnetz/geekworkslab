@@ -21,6 +21,14 @@
                     By <a class="underline hover:no-underline" href="{{ route('profile', ['user_id' => $post->User->id]) }}">{{ $post->User->name }}</a><span class="mx-3">|</span>
                     <a class="underline hover:no-underline" href="#comments">{{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}</a><span class="mx-3">|</span>
                     {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
+                    @if(Auth::check() && $post->user_id !== Auth::id())
+                        .
+                        @if($upvoted)
+                            <span class="italic cursor-pointer" wire:click="CancelUpvote()">Remove upvote</span>
+                        @else
+                            <span class="italic cursor-pointer" wire:click="Upvote()">Upvote this post</span>
+                        @endif
+                    @endif
                 </p>
                 <hr class="my-3" />
                 <img class="hidden md:block w-full md:w-1/3 float-left mr-4 mb-1 border" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>

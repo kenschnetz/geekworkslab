@@ -114,11 +114,12 @@
     })->name('category');
 
     Route::get('/{category_slug}/{post_slug}', function ($category_slug, $post_slug) {
-        if (!CategoryModel::where('slug', $category_slug)->exists() || !PostModel::where('slug', $post_slug)->exists()) {
+        $post = PostModel::where('slug', $post_slug)->with('Category')->first();
+        if (!CategoryModel::where('slug', $category_slug)->exists() || empty($post)) {
             abort('404');
         }
         return view('components.layout', [
-            'name' => Str::singular(Str::title(str_replace('-', ' ', $category_slug))) . ": " . Str::title(str_replace('-', ' ', $post_slug)),//Str::singular($post->Category->name) . ": " . $post->title,
+            'name' => Str::singular($post->Category->name) . ": " . $post->title,
             'view' => 'post-view',
             'properties' => ['post_slug' => $post_slug]
         ]);
