@@ -2,22 +2,29 @@
     <div class="p-3 md:px-6 md:py-4 bg-white shadow rounded flex flex-col">
         <div>
             <p class="text-center md:text-left text-lg font-bold">
-                {{ $post->title }}
+                {{ $post->title . ($post->content_type_id === 2 ? ' (Art only)' : '') }}
             </p>
             <p class="mb-1 md:mb-0 text-center md:text-left text-lg italic">
                 {{$post->description}}
             </p>
             <hr class="hidden md:block my-3" />
-            <p class="md:hidden">
-                <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
-            </p>
-            <p class="mt-3 md:mt-0 text-center md:text-left text-sm">
-                By <a class="underline hover:no-underline" href="{{ route('profile', ['user_id' => $post->User->id]) }}">{{ $post->User->name }}</a><span class="mx-3">|</span>
-                <a class="underline hover:no-underline" href="#comments">{{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}</a><span class="mx-3">|</span>
-                {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
-            </p>
-            <hr class="my-3" />
-            <img class="hidden md:block w-full md:w-1/3 float-left mr-4 mb-1 border" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
+            @if($post->content_type_id === 2)
+                <div class="w-full md:w-3/4 lg:w-1/2 mx-auto">
+                    <img class="w-full border" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
+                </div>
+                <hr class="my-3" />
+            @else
+                <p class="md:hidden">
+                    <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
+                </p>
+                <p class="mt-3 md:mt-0 text-center md:text-left text-sm">
+                    By <a class="underline hover:no-underline" href="{{ route('profile', ['user_id' => $post->User->id]) }}">{{ $post->User->name }}</a><span class="mx-3">|</span>
+                    <a class="underline hover:no-underline" href="#comments">{{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}</a><span class="mx-3">|</span>
+                    {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
+                </p>
+                <hr class="my-3" />
+                <img class="hidden md:block w-full md:w-1/3 float-left mr-4 mb-1 border" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
+            @endif
             <p>
                 {{ $post->content }}
             </p>
@@ -49,14 +56,12 @@
             </p>
             <div x-data="{ deleting: false }" x-cloak>
                 <div x-show="!deleting">
-                    <a href="{{ route('post-edit', ['post_id' => $post->id]) }}" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">Edit</a>
-                    .
-                    <a class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-red-800" x-on:click="deleting = true">Delete</a>
+                    <a href="{{ route('post-edit', ['post_id' => $post->id]) }}" class="w-full md:w-1/6 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">Edit</a>
+                    <a class="w-full mt-3 md:mt-0 md:w-1/6 text-center cursor-pointer inline-block bg-red-700 hover:bg-transparent text-white hover:text-red-800 font-bold px-4 py-3 border border-red-700" x-on:click="deleting = true">Delete</a>
                 </div>
                 <div x-show="deleting">
-                    <a class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-green-500" x-on:click="deleting = false">Cancel</a>
-                    .
-                    <a class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-red-800" wire:click="DeletePost({{$post->id}})">Confirm Delete</a>
+                    <a class="w-full md:w-1/6 text-center cursor-pointer inline-block bg-green-500 hover:bg-transparent text-white hover:text-green-800 font-bold px-4 py-3 border border-green-500" x-on:click="deleting = false">Cancel</a>
+                    <a class="w-full mt-3 md:mt-0 md:w-1/6 text-center cursor-pointer inline-block bg-red-700 hover:bg-transparent text-white hover:text-red-800 font-bold px-4 py-3 border border-red-700" wire:click="DeletePost({{$post->id}})">Confirm Delete</a>
                 </div>
             </div>
         @endif

@@ -1,11 +1,6 @@
 <div class="p-2 md:px-6 bg-white shadow rounded">
     <div class="flex items-center">
-        <input class="w-full rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" placeholder="Filter" wire:model.lazy="search_term">
-        <div class="-ml-16">
-            <button class="text-gray-500 rounded-full px-6 py-2 focus:outline-none h-12 flex items-center justify-center">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
+        <input class="w-full rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" placeholder="Filter" wire:model="search_term">
     </div>
     <div class="flex flex-col pt-8">
         @if(count($posts) > 0)

@@ -116,8 +116,8 @@
             <x-dropdown-link href="{{ route('category', ['category_slug' => 'abilities']) }}">
                 {{ __('Abilities') }}
             </x-dropdown-link>
-            <x-dropdown-link href="{{ route('category', ['category_slug' => 'art']) }}">
-                {{ __('Art') }}
+            <x-dropdown-link href="{{ route('category', ['category_slug' => 'misc']) }}">
+                {{ __('Misc') }}
             </x-dropdown-link>
             @auth
                 <hr/>
@@ -137,6 +137,12 @@
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
                 <div class="mt-3 space-y-1">
+                    <x-dropdown-link :href="route('profile')">
+                        {{ __('Profile') }}
+                    </x-dropdown-link>
+                    <x-dropdown-link :href="route('account')">
+                        {{ __('Account') }}
+                    </x-dropdown-link>
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

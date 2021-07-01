@@ -53,10 +53,10 @@
                 </div>
                 <hr class="my-3" />
                 <div>
+                    <div class="font-bold text-lg">
+                        Images
+                    </div>
                     @if(count($selected_images) > 0)
-                        <p class="italic">
-                            Selected Images:
-                        </p>
                         <div class="font-md my-3 grid w-full sm:grid-cols-2 md:grid-cols-4 gap-1">
                             @foreach($selected_images as $selected_image)
                                 <div>
@@ -65,7 +65,7 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="italic mb-3">
+                        <p class="italic my-3">
                             No Images selected
                         </p>
                     @endif
@@ -75,10 +75,10 @@
                 </div>
                 <hr class="my-3" />
                 <div>
+                    <div class="font-bold text-lg">
+                        Tags
+                    </div>
                     @if(count($selected_tags) > 0)
-                        <p class="italic">
-                            Selected Tags:
-                        </p>
                         <div class="font-md my-3 grid md:grid-cols-4 gap-1">
                             @foreach($selected_tags as $selected_tag)
                                 <div class="font-bold p-3 border text-center">
@@ -87,7 +87,7 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="italic mb-3">
+                        <p class="italic my-3">
                             No Tags selected
                         </p>
                     @endif
@@ -97,10 +97,10 @@
                 </div>
                 <hr class="my-3" />
                 <div>
+                    <div class="font-bold text-lg">
+                        Attributes
+                    </div>
                     @if(count($selected_attributes) > 0)
-                        <p class="italic">
-                            Selected Attributes:
-                        </p>
                         <div class="font-md my-3 grid lg:grid-cols-2 gap-1">
                             @foreach($selected_attributes as $index => $selected_attribute)
                                 <div class="p-3 border text-center" wire:key="selected-attribute-{{$selected_attribute['id']}}">
@@ -110,7 +110,7 @@
                             @endforeach
                         </div>
                     @else
-                        <p class="italic mb-3">
+                        <p class="italic my-3">
                             No Attributes selected
                         </p>
                     @endif

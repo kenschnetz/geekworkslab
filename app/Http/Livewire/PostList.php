@@ -39,6 +39,7 @@
                             ->orWhere('content', 'like', "%{$this->search_term}%");
                     })->with('Images')
                     ->withCount('Upvotes', 'AllComments')
+                    ->latest()
                     ->paginate($pagination_count)
                 : (empty($this->category)
                     ? PostModel::where('content_type_id', '!=', 3)
@@ -51,6 +52,7 @@
                                 ->orWhere('content', 'like', "%{$this->search_term}%");
                         })->with('Images')
                         ->withCount('Upvotes', 'AllComments')
+                        ->latest()
                         ->paginate($pagination_count)
                     : $this->category->Posts()
                         ->where('content_type_id', '!=', 3)
@@ -63,6 +65,7 @@
                                 ->orWhere('content', 'like', "%{$this->search_term}%");
                         })->with('Images')
                         ->withCount('Upvotes', 'AllComments')
+                        ->latest()
                         ->paginate($pagination_count));
             return view('livewire.post-list')->with(['posts' => $posts]);
         }
