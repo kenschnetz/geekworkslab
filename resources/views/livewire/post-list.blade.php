@@ -1,4 +1,4 @@
-<div class="p-2 md:px-6 bg-white shadow rounded">
+<div class="p-2 md:p-6 bg-white shadow rounded">
     <div class="flex items-center">
         <input class="w-full rounded py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" placeholder="Filter" wire:model="search_term">
     </div>
