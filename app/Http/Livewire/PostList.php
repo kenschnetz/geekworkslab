@@ -14,7 +14,7 @@
         public bool $user_posts_only = false;
         public int|null $user_id;
         public CategoryModel $category;
-        public string $default_image_url = '/storage/post-images/default-placeholder.png';
+        public string $default_image_url = '/img/default-placeholder.png';
         public string $search_term = '';
 
         public function ShortenBigNumber($number) {
