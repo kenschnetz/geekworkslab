@@ -19,6 +19,14 @@
 
     require __DIR__ . '/auth.php';
 
+//    Route::get('/test', function () {
+//        return view('components.layout', [
+//            'name' => 'Test',
+//            'view' => 'selectable-grid',
+//            'properties' => []
+//        ]);
+//    })->name('test');
+
     Route::get('/profile/{user_id?}', function ($user_id = null) {
         return view('components.layout', [
             'name' => 'Profile',

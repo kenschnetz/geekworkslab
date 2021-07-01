@@ -38251,6 +38251,14 @@ select {
   max-width: 100%;
 }
 
+.image-management-square {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

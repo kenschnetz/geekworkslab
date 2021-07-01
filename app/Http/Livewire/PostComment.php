@@ -22,7 +22,7 @@
             $this->emit('ReplyingTo', $id, $name, $content);
         }
 
-        public function EditComment($id, $post_comment_id, $content) {
+        public function EditComment($id, $content, $post_comment_id = null) {
             $this->emit('EditComment', $id, $post_comment_id, $content);
         }
 

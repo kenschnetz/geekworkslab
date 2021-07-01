@@ -74,12 +74,12 @@
                         Submit
                     </button>
                 </div>
-{{--                @error('comment.content')--}}
-{{--                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">--}}
-{{--                        <strong class="font-bold">Error:</strong>--}}
-{{--                        <span class="block sm:inline">{{$mesasge}}</span>--}}
-{{--                    </div>--}}
-{{--                @enderror--}}
+                @error('comment_content')
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Error:</strong>
+                        <span class="block sm:inline">{{$message}}</span>
+                    </div>
+                @enderror
             </form>
         @else
             <p class="font-semibold text-gray-900 my-3 italic">
