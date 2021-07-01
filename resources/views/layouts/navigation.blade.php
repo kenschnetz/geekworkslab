@@ -22,6 +22,10 @@
                         </x-slot>
                         <x-slot name="content">
                             <div class="w-60">
+                                <x-dropdown-link href="{{ route('home') }}">
+                                    {{ __('Latest Submission') }}
+                                </x-dropdown-link>
+                                <hr/>
                                 <x-dropdown-link href="{{ route('category', ['category_slug' => 'items']) }}">
                                     {{ __('Items') }}
                                 </x-dropdown-link>
@@ -101,24 +105,25 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-label class="text-xl px-4">
-                {{ __('Categories') }}
-            </x-label>
-            <x-dropdown-link href="{{ route('category', ['category_slug' => 'items']) }}">
+            <x-responsive-nav-link href="{{ route('home') }}">
+                {{ __('Latest Submissions') }}
+            </x-responsive-nav-link>
+            <hr/>
+            <x-responsive-nav-link href="{{ route('category', ['category_slug' => 'items']) }}">
                 {{ __('Items') }}
-            </x-dropdown-link>
-            <x-dropdown-link href="{{ route('category', ['category_slug' => 'monsters']) }}">
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('category', ['category_slug' => 'monsters']) }}">
                 {{ __('Monsters') }}
-            </x-dropdown-link>
-            <x-dropdown-link href="{{ route('category', ['category_slug' => 'hooks']) }}">
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('category', ['category_slug' => 'hooks']) }}">
                 {{ __('Hooks') }}
-            </x-dropdown-link>
-            <x-dropdown-link href="{{ route('category', ['category_slug' => 'abilities']) }}">
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('category', ['category_slug' => 'abilities']) }}">
                 {{ __('Abilities') }}
-            </x-dropdown-link>
-            <x-dropdown-link href="{{ route('category', ['category_slug' => 'misc']) }}">
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('category', ['category_slug' => 'misc']) }}">
                 {{ __('Misc') }}
-            </x-dropdown-link>
+            </x-responsive-nav-link>
             @auth
                 <hr/>
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -137,12 +142,12 @@
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
                 <div class="mt-3 space-y-1">
-                    <x-dropdown-link :href="route('profile')">
+                    <x-responsive-nav-link :href="route('profile')">
                         {{ __('Profile') }}
-                    </x-dropdown-link>
-                    <x-dropdown-link :href="route('account')">
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('account')">
                         {{ __('Account') }}
-                    </x-dropdown-link>
+                    </x-responsive-nav-link>
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
