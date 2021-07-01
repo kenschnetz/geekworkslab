@@ -180,7 +180,7 @@
                 'new_attribute.name' => 'required|string',
                 'new_attribute.description' => 'required|string',
             ]);
-            TagModel::create([
+            AttributeModel::create([
                 'name' => $this->new_attribute['name'],
                 'description' => $this->new_attribute['description'],
             ]);
