@@ -25,7 +25,7 @@
         public int|null $post_id;
         public string $post_slug;
         public bool|null $upvoted;
-        public string $default_image_url = '/storage/post-images/default-placeholder.png';
+        public string $default_image_url = '/img/default-placeholder.png';
         protected $listeners = ['ReplyingTo' => 'ReplyingTo', 'EditComment' => 'EditComment', 'DeleteComment' => 'DeleteComment'];
 
         public function Mount() {
