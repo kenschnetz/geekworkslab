@@ -27,7 +27,7 @@
                             </div>
                             <hr class="my-3 md:my-1 border-gray-100" />
                             <div class="py-1">
-                                <span>{{Str::limit($post->content, 100)}}</span>
+                                {!! Str::limit($post->content, 120) !!}
                             </div>
                         </div>
                     </div>
