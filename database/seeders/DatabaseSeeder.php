@@ -13,9 +13,9 @@
         public function run() {
             $this->call([
                 Users::class,
-//                ContentTypes::class,
-//                Systems::class,
-//                Categories::class,
+                ContentTypes::class,
+                Systems::class,
+                Categories::class,
 //                Tags::class,
 //                Attributes::class,
 //                Images::class,
