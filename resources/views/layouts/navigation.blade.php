@@ -157,6 +157,12 @@
                     </form>
                 </div>
             </div>
+        @else
+            <div class="py-2 border-t border-gray-200">
+                <x-responsive-nav-link :href="route('login')">
+                    {{ __('Login') }}
+                </x-responsive-nav-link>
+            </div>
         @endauth
     </div>
 </nav>
