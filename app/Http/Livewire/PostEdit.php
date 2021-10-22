@@ -251,7 +251,7 @@
             switch($item_type) {
                 case 0: unset($this->removed_images[$item['id']]); break;
                 case 1: unset($this->removed_tags[$item['id']]); break;
-                default: unset($this->removed_attributes[$item['id']]);;
+                default: unset($this->removed_attributes[$item['id']]);
             }
         }
     }
