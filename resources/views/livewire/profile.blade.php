@@ -49,9 +49,9 @@
                                 <p class="text-center md:text-left text-lg font-bold underline">
                                     {{ $post->title }}
                                 </p>
-{{--                                <p class="text-center md:text-left text-lg italic">--}}
-{{--                                    {{$post->description}}--}}
-{{--                                </p>--}}
+                                <p class="text-center md:text-left text-lg italic">
+                                    {{$post->description}}
+                                </p>
 {{--                                <p class="md:hidden">--}}
 {{--                                    <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}" alt="Post image"/>--}}
 {{--                                </p>--}}
