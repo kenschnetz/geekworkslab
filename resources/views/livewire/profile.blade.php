@@ -41,8 +41,8 @@
             <div class="mt-6 p-3 bg-white shadow rounded flex flex-col md:py-4 md:px-6">
                 <p class="mb-3 text-xl font-bold">Posts</p>
                 @if(count($posts) > 0)
-{{--                    @foreach($posts as $post)--}}
-{{--                        <hr/>--}}
+                    @foreach($posts as $post)
+                        <hr/>
 {{--                        <div class="flex items-center p-4 cursor-pointer hover:bg-gray-100" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">--}}
 {{--                            <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path ?? $default_image_url }}" alt="Post image"/>--}}
 {{--                            <div class="w-full">--}}
@@ -69,9 +69,9 @@
 {{--                                </p>--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
-{{--                    @endforeach--}}
-{{--                    <hr class="my-3"/>--}}
-{{--                    {{ $posts->links() }}--}}
+                    @endforeach
+                    <hr class="my-3"/>
+                    {{ $posts->links() }}
                 @else
                     <hr class="my-3"/>
                     <p class="italic font-md">No posts yet!</p>
