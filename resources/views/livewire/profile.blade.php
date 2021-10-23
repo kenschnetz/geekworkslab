@@ -65,7 +65,7 @@
                                 </p>
                                 <hr class="my-3 md:my-1 border-gray-100"/>
                                 <p class="py-1">
-                                    <span>{!! Str::limit($post->content, 100) !!}</span>
+                                    <div>{!! Str::limit($post->content, 100) !!}</div>
                                 </p>
                             </div>
                         </div>
