@@ -46,9 +46,9 @@
                         <div class="flex items-center p-4 cursor-pointer hover:bg-gray-100" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">
                             <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path ?? $default_image_url }}" alt="Post image"/>
                             <div class="w-full">
-{{--                                <p class="text-center md:text-left text-lg font-bold underline">--}}
-{{--                                    {{ $post->title }}--}}
-{{--                                </p>--}}
+                                <p class="text-center md:text-left text-lg font-bold underline">
+                                    {{ $post->title }}
+                                </p>
 {{--                                <p class="text-center md:text-left text-lg italic">--}}
 {{--                                    {{$post->description}}--}}
 {{--                                </p>--}}
