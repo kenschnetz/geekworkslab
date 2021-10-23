@@ -44,10 +44,13 @@
 
         public function GenerateUniqueSlug($title) {
             $slug = Str::slug($title);
-            $counter = 1;
-            while(Post::where('slug', $counter > 1 ? $slug . '-' . $counter : $slug)->exists()) {
+            $counter = 0;
+            while(Post::where('slug', $counter > 0 ? $slug . '-' . $counter : $slug)->withTrashed()->exists()) {
                 $counter++;
             }
-            return $slug . '-' . $counter;
+            if ($counter > 0) {
+                $slug = $slug . '-' . $counter;
+            }
+            return $slug;
         }
 	}

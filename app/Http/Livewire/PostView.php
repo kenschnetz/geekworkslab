@@ -86,6 +86,7 @@
 
         public function DeletePost($id) {
             PostModel::where('id', $id)->delete();
+            redirect()->route('dashboard');
         }
 
         public function Render() {
