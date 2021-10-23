@@ -40,7 +40,7 @@
             </div>
             <div class="mt-6 p-3 bg-white shadow rounded flex flex-col md:py-4 md:px-6">
                 <p class="mb-3 text-xl font-bold">Posts</p>
-{{--                @if(count($posts) > 0)--}}
+                @if(count($posts) > 0)
 {{--                    @foreach($posts as $post)--}}
 {{--                        <hr/>--}}
 {{--                        <div class="flex items-center p-4 cursor-pointer hover:bg-gray-100" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">--}}
@@ -72,10 +72,10 @@
 {{--                    @endforeach--}}
 {{--                    <hr class="my-3"/>--}}
 {{--                    {{ $posts->links() }}--}}
-{{--                @else--}}
-{{--                    <hr class="my-3"/>--}}
-{{--                    <p class="italic font-md">No posts yet!</p>--}}
-{{--                @endif--}}
+                @else
+                    <hr class="my-3"/>
+                    <p class="italic font-md">No posts yet!</p>
+                @endif
             </div>
         </div>
         <div class="p-3 md:px-6 md:py-4 bg-white shadow rounded flex flex-col">
