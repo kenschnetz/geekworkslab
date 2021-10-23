@@ -43,9 +43,9 @@
                 @if(count($posts) > 0)
                     @foreach($posts as $post)
                         <hr/>
-{{--                        <div class="flex items-center p-4 cursor-pointer hover:bg-gray-100" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">--}}
-{{--                            <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path ?? $default_image_url }}" alt="Post image"/>--}}
-{{--                            <div class="w-full">--}}
+                        <div class="flex items-center p-4 cursor-pointer hover:bg-gray-100" wire:key="row-{{ $post->id }}" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">
+                            <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path ?? $default_image_url }}" alt="Post image"/>
+                            <div class="w-full">
 {{--                                <p class="text-center md:text-left text-lg font-bold underline">--}}
 {{--                                    {{ $post->title }}--}}
 {{--                                </p>--}}
@@ -67,8 +67,8 @@
 {{--                                <p class="py-1">--}}
 {{--                                    <span>{!! Str::limit($post->content, 100) !!}</span>--}}
 {{--                                </p>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                            </div>
+                        </div>
                     @endforeach
                     <hr class="my-3"/>
                     {{ $posts->links() }}
