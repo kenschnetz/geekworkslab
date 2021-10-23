@@ -55,14 +55,20 @@
                                 <p class="md:hidden">
                                     <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}" alt="Post image"/>
                                 </p>
-{{--                                <hr class="my-1 border-gray-100 hidden md:block"/>--}}
-{{--                                <p class="py-0 md:py-1 mt-3 md:mt-0 text-center md:text-left text-sm">--}}
-{{--                                    By--}}
-{{--                                    <a class="underline hover:no-underline" href="{{ route('profile', ['user_id' => $post->User->id]) }}">{{ $post->User->name }}</a><span class="mx-3">|</span>--}}
-{{--                                    {{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}--}}
-{{--                                    <span class="mx-3">|</span>--}}
-{{--                                    {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}--}}
-{{--                                </p>--}}
+                                <hr class="my-1 border-gray-100 hidden md:block"/>
+                                <p class="py-0 md:py-1 mt-3 md:mt-0 text-center md:text-left text-sm">
+                                    By
+                                    <a class="underline hover:no-underline" href="{{ route('profile', ['user_id' => $post->User->id]) }}">{{ $post->User->name }}</a><span class="mx-3">|</span>
+                                    {{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}
+                                    <span class="mx-3">|</span>
+                                    {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
+                                </p>                                <p class="py-0 md:py-1 mt-3 md:mt-0 text-center md:text-left text-sm">
+                                    By
+                                    <a class="underline hover:no-underline" href="{{ route('profile', ['user_id' => $post->User->id]) }}">{{ $post->User->name }}</a><span class="mx-3">|</span>
+                                    {{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}
+                                    <span class="mx-3">|</span>
+                                    {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
+                                </p>
 {{--                                <hr class="my-3 md:my-1 border-gray-100"/>--}}
 {{--                                <p class="py-1">--}}
 {{--                                    <span>{!! Str::limit($post->content, 100) !!}</span>--}}
