@@ -12,7 +12,7 @@
         use WithPagination;
 
         public int|null $user_id;
-        public string $default_image_url = '/storage/post-images/default-placeholder.png';
+        public string $default_image_url = '/img/default-placeholder.png';
 
         public function ShortenBigNumber($number) {
             return (new MiscUtilities)->ShortenBigNumber($number);
