@@ -64,9 +64,9 @@
                                     {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
                                 </p>
                                 <hr class="my-3 md:my-1 border-gray-100"/>
-{{--                                <p class="py-1">--}}
-{{--                                    <span>{!! Str::limit($post->content, 100) !!}</span>--}}
-{{--                                </p>--}}
+                                <p class="py-1">
+                                    <span>{!! Str::limit($post->content, 100) !!}</span>
+                                </p>
                             </div>
                         </div>
                     @endforeach
