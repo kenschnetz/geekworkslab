@@ -18,9 +18,11 @@
                             <div class="text-center md:text-left text-lg italic">
                                 {{$post->description}}
                             </div>
-                            <div class="md:hidden">
-                                <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
-                            </div>
+                            @if(!empty(optional($post->Images->first())->path))
+                                <div class="md:hidden">
+                                    <img class="sm-post-img border mt-3 mx-auto" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
+                                </div>
+                            @endif
                             <hr class="my-1 border-gray-100 hidden md:block" />
                             <div class="py-0 md:py-1 mt-3 md:mt-0 text-center md:text-left text-sm">
                                 By {{ $post->User->name }}<span class="mx-3">|</span>
