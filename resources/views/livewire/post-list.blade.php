@@ -8,7 +8,9 @@
                 <div wire:key="row-{{ $post->id }}">
                     <hr/>
                     <div class="flex items-center p-4 cursor-pointer hover:bg-gray-100" wire:click="View('{{$post->Category->slug}}', '{{$post->slug}}')">
-                        <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image" />
+                        @if(!empty(optional($post->Images->first())->path))
+                            <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path }}"  alt="Post image" />
+                        @endif
                         <div class="w-full">
                             <div class="text-center md:text-left text-lg font-bold underline">
                                 {{ $post->title }}
