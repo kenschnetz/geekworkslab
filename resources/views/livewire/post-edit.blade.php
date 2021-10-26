@@ -68,7 +68,7 @@
                         No Images selected
                     </p>
                 @endif
-                <a x-on:click="showImageManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                <a wire:click="ResetPagination(0)" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
                     Manage Images
                 </a>
             </div>
@@ -90,7 +90,7 @@
                         No Tags selected
                     </p>
                 @endif
-                <a x-on:click="showTagManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                <a wire:click="ResetPagination(1)" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
                     Manage Tags
                 </a>
             </div>
@@ -113,7 +113,7 @@
                         No Attributes selected
                     </p>
                 @endif
-                <a x-on:click="showAttributeManagementModal = true" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                <a wire:click="ResetPagination(2)" class="w-full md:w-1/4 text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
                     Manage Attributes
                 </a>
             </div>

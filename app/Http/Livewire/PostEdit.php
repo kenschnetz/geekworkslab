@@ -99,6 +99,15 @@
             }
         }
 
+        public function ResetPagination($action) {
+            match($action) {
+                0 => $this->showImageManagementModal = true,
+                1 => $this->showTagManagementModal = true,
+                2 => $this->showAttributeManagementModal = true,
+            };
+            $this->resetPage();
+        }
+
         public function SavePost() {
             if (!empty($this->post->id)) {
                 foreach($this->removed_images as $removed_image) {
@@ -197,13 +206,13 @@
                 ->Images()
                 ->where('name', 'like', "%{$this->search_term}%")
                 ->orWhere('path', 'like', "%{$this->search_term}%")
-                ->paginate($paginate_count);
+                ->paginate($paginate_count,  ['*'], 'images');
             $tags = TagModel::where('name', 'like', "%{$this->search_term}%")
                 ->orWhere('description', 'like', "%{$this->search_term}%")
-                ->paginate($paginate_count);
+                ->paginate($paginate_count,  ['*'], 'tags');
             $attributes = AttributeModel::where('name', 'like', "%{$this->search_term}%")
                 ->orWhere('description', 'like', "%{$this->search_term}%")
-                ->paginate($paginate_count);
+                ->paginate($paginate_count,  ['*'], 'attributes');
             foreach($attributes as $attribute) {
                 $attribute['value'] = '';
             }
