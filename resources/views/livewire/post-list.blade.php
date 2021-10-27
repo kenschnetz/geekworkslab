@@ -16,7 +16,7 @@
                                 {{ $post->title }}
                             </div>
                             <div class="text-center md:text-left text-lg italic">
-                                {{$post->description}}
+                                {!! Str::limit($post->description) !!}
                             </div>
                             @if(!empty(optional($post->Images->first())->path))
                                 <div class="md:hidden">
@@ -31,7 +31,7 @@
                             </div>
                             <hr class="my-3 md:my-1 border-gray-100" />
                             <div class="py-1">
-                                {!! Str::limit($post->content, 120) !!}
+                                {!! Str::limit($post->content, 200) !!}
                             </div>
                         </div>
                     </div>

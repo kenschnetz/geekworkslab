@@ -37,7 +37,7 @@
                     <img class="hidden md:block w-full md:w-1/3 float-left mr-4 mb-1 border" src="{{ optional($post->Images->first())->path ?? $default_image_url }}"  alt="Post image"/>
                 @endif
             @endif
-            <div class="font-md">
+            <div id="post-content" class="font-md">
                 {!! $post->content !!}
             </div>
             @if(count($post->Attributes) > 0)
