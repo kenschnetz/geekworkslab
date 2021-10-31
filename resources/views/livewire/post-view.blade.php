@@ -1,7 +1,7 @@
 <div>
     <div class="p-3 md:px-6 md:py-4 bg-white shadow rounded flex flex-col">
         <div>
-            <p class="text-center md:text-left text-lg font-bold">
+            <p class="text-center md:text-left text-xl font-bold">
                 {{ $post->title . ($post->content_type_id === 2 ? ' (Art only)' : '') }}<img src="/storage/img/{{ $this->Icon($post->category_id) }}.png" class="inline-block h-8 w-8 ml-4" />
             </p>
             <p class="mb-1 md:mb-0 text-center md:text-left text-lg italic">
