@@ -89,6 +89,16 @@
             redirect()->route('dashboard');
         }
 
+        public function Icon($category_id) {
+            return match($category_id) {
+                1 => 'items',
+                2 => 'monsters',
+                3 => 'hooks',
+                4 => 'abilities',
+                5 => 'misc',
+            };
+        }
+
         public function Render() {
             $post = PostModel::where('slug', $this->post_slug)
                 ->with('User', 'Images', 'Contributors', 'Tags', 'Attributes', 'Upvotes')
