@@ -25,6 +25,16 @@
             return redirect()->route( 'post', ['category_slug' => $category_slug, 'post_slug' => $post_slug]);
         }
 
+        public function Icon($category_id) {
+            return match($category_id) {
+                1 => 'items',
+                2 => 'monsters',
+                3 => 'hooks',
+                4 => 'abilities',
+                5 => 'misc',
+            };
+        }
+
         public function Render() {
             $pagination_count = 20;
             $posts = $this->user_posts_only

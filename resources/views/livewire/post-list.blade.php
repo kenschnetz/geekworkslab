@@ -12,8 +12,8 @@
                             <img class="hidden md:block object-cover float-left mr-4 mb-1 post-img" src="{{ optional($post->Images->first())->path }}"  alt="Post image" />
                         @endif
                         <div class="w-full">
-                            <div class="text-center md:text-left text-lg font-bold underline">
-                                {{ $post->title }}
+                            <div class="text-center md:text-left text-xl font-bold underline">
+                                {{ $post->title }}<img src="/storage/img/{{ $this->Icon($post->category_id) }}.png" class="inline-block h-8 w-8 ml-4" />
                             </div>
                             <div class="text-center md:text-left text-lg italic">
                                 {!! Str::limit($post->description) !!}
