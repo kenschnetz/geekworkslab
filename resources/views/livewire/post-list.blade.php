@@ -16,7 +16,7 @@
                                 {{ $post->title }}<img src="/storage/img/{{ $this->Icon($post->category_id) }}.png" class="inline-block h-8 w-8 ml-4" />
                             </div>
                             <div class="text-center md:text-left text-lg italic">
-                                {!! Str::limit($post->description) !!}
+                                {{ Str::limit($post->description) }}
                             </div>
                             @if(!empty(optional($post->Images->first())->path))
                                 <div class="md:hidden">
@@ -31,7 +31,7 @@
                             </div>
                             <hr class="my-3 md:my-1 border-gray-100" />
                             <div class="py-1">
-                                {!! Str::limit($post->content, 200) !!}
+                                {!! strip_tags(Str::limit($post->content, 200), '<strong><em><del><br><a>') !!}
                             </div>
                         </div>
                     </div>
