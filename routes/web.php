@@ -67,6 +67,14 @@
         ]);
     })->name('dashboard')->middleware('auth');
 
+    Route::get('/invite-user', function () {
+        return view('components.layout', [
+            'name' => 'Invite User',
+            'view' => 'invite-user',
+            'properties' => []
+        ]);
+    })->name('invite-user')->middleware('auth');
+
     Route::get('/post/{post_id?}', function ($post_id = null) {
         return view('components.layout', [
             'name' => (empty($post_id) ? 'Create' : 'Edit') . ' Post',
