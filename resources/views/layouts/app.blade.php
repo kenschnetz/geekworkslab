@@ -28,7 +28,7 @@
                 {{ $slot }}
             </main>
         </div>
-        <div class="bg-white text-center p-3 underline text-blue-500">
+        <div class="bg-white text-center p-3 mt-5 underline text-blue-500 border-t border-gray-200 shadow">
             <a href="{{ route('terms') }}">Terms and Conditions</a>
         </div>
         @livewireScripts
