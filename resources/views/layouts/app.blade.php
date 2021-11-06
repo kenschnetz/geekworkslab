@@ -15,7 +15,7 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100" style="margin-bottom: -48px !important;">
             @include('layouts.navigation')
             <!-- Page Heading -->
             <header class="bg-white shadow">
@@ -27,6 +27,9 @@
             <main>
                 {{ $slot }}
             </main>
+        </div>
+        <div class="bg-white text-center p-3 underline text-blue-500">
+            <a href="{{ route('terms') }}">Terms and Conditions</a>
         </div>
         @livewireScripts
         <script src="https://unpkg.com/trix@1.3.1/dist/trix.js"></script>

@@ -27,6 +27,14 @@
 //        ]);
 //    })->name('test');
 
+    Route::get('/terms', function () {
+        return view('components.layout', [
+            'name' => 'Terms and Conditions',
+            'view' => 'terms',
+            'properties' => []
+        ]);
+    })->name('terms');
+
     Route::get('/profile/{user_id?}', function ($user_id = null) {
         return view('components.layout', [
             'name' => 'Profile',
