@@ -88,12 +88,6 @@
                         <div class="mt-4 w-full">
                             <select class="form-control mt-1 w-full" name="role" wire:model="new_user.role_id">
                                 <option value="null">Select Role</option>
-                                <option value="{{ 1 }}">
-                                    Geekworks Superadmin
-                                </option>
-                                <option value="{{ 2 }}">
-                                    Moderator
-                                </option>
                                 <option value="{{ 3 }}">
                                     Member
                                 </option>
