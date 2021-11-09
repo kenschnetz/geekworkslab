@@ -8,7 +8,7 @@
     </div>
     @auth
         <div class="py-3" x-data="{ deleting: false }" x-cloak>
-            @if($user_id === $comment->user_id)
+            @if($user_id === $comment->user_id || Auth::user()->role_id === 1)
                 <div x-show="!deleting">
                     <a href="#comments" class="inline-block text-xs align-bottom cursor-pointer" wire:click="EditComment({{$comment->id}}, '{{addslashes($comment->content)}}', {{$comment->post_comment_id}})"><i>Edit</i></a>
                     .

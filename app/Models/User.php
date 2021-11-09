@@ -98,4 +98,8 @@
         public function InProgressBadges() {
             return $this->hasMany(UserBadge::class)->where('earned', false)->with('Badge');
         }
+
+        public function Messages() {
+            return $this->hasMany(PrivateMessage::class);
+        }
     }

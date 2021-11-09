@@ -48,6 +48,14 @@
         ]);
     })->name('account')->middleware('auth', 'terms');
 
+    Route::get('/messenger', function () {
+        return view('components.layout', [
+            'name' => 'Messenger',
+            'view' => 'messenger',
+            'properties' => []
+        ]);
+    })->name('messenger')->middleware('auth', 'terms');
+
     Route::get('/collections/{user_id?}', function ($user_id = null) {
         return view('components.layout', [
             'name' => 'Your Collections',
