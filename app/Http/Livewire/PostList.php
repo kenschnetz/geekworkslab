@@ -5,6 +5,7 @@
     use App\Models\Category as CategoryModel;
     use App\Models\Post as PostModel;
     use App\Utilities\Misc as MiscUtilities;
+    use Illuminate\Support\Facades\Auth;
     use Livewire\Component;
     use Livewire\WithPagination;
 
@@ -42,7 +43,6 @@
                     ->where('content_type_id', '!=', 3)
                     ->where('content_subtype_id', '!=', 4)
                     ->where('published', true)
-                    ->where('moderated', false)
                     ->where(function($query) {
                         $query->where('title', 'like', "%{$this->search_term}%")
                             ->orWhere('description', 'like', "%{$this->search_term}%")
@@ -55,8 +55,9 @@
                     ? PostModel::where('content_type_id', '!=', 3)
                         ->where('content_subtype_id', '!=', 4)
                         ->where('published', true)
-                        ->where('moderated', false)
-                        ->where(function($query) {
+                        ->when(optional(Auth::user())->role_id !== 1, function($query) {
+                            return $query->where('moderated', false);
+                        })->where(function($query) {
                             $query->where('title', 'like', "%{$this->search_term}%")
                                 ->orWhere('description', 'like', "%{$this->search_term}%")
                                 ->orWhere('content', 'like', "%{$this->search_term}%");

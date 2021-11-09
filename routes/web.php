@@ -3,6 +3,7 @@
     use App\Models\Category as CategoryModel;
     use App\Models\Post as PostModel;
     use App\Models\User as UserModel;
+    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Str;
 

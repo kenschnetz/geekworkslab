@@ -77,7 +77,14 @@
                 $this->post->description = '';
                 $this->post->content = '';
             } else {
-                $this->post = PostModel::where('id', $this->post_id)->with('Category')->first();
+                if (Auth::user()->role_id === 1) {
+                    $this->post = PostModel::where('id', $this->post_id)->with('Category')->first();
+                } else {
+                    $this->post = Auth::user()->Posts()->where('id', $this->post_id)->first();
+                }
+                if (empty($this->post)) {
+                    abort('404');
+                }
                 $selected_images = $this->post->Images()->get();
                 foreach($selected_images as $selected_image) {
                     $this->selected_images[$selected_image->id] = $selected_image;

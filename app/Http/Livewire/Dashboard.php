@@ -36,8 +36,9 @@
             $this->showInviteModal = !$this->showInviteModal;
         }
 
-        public function ToggleInviteSuccessModal() {
+        public function CloseInviteSuccessModal() {
             $this->showInviteSuccessModal = !$this->showInviteSuccessModal;
+            $this->reset('new_user');
         }
 
         public function TogglePasswordResetModal() {
@@ -45,8 +46,9 @@
             $this->showPasswordResetModal = !$this->showPasswordResetModal;
         }
 
-        public function TogglePasswordResetSuccessModal() {
+        public function ClosePasswordResetSuccessModal() {
             $this->showPasswordResetSuccessModal = !$this->showPasswordResetSuccessModal;
+            $this->reset('password_reset');
         }
 
         public function GeneratePassword($new_user = true) {
@@ -72,9 +74,9 @@
         }
 
         public function ResetUserPassword() {
+            $this->validate();
             $password_reset_user = UserModel::where('email', $this->password_reset['email'])->first();
             if(!empty($password_reset_user)) {
-                $this->validate();
                 $password_reset_user->password = bcrypt($this->password_reset['password']);
                 $password_reset_user->save();
                 $this->showPasswordResetModal = false;
@@ -101,7 +103,7 @@
                 ];
             } else {
                 return [
-                    'password_reset.email' => 'required|string',
+                    'password_reset.email' => 'required|string|exists:users,email',
                     'password_reset.password' => 'required|string',
                 ];
             }

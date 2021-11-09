@@ -123,7 +123,7 @@
                 <p>Password: <code>{{ $new_user['generated_password'] }}</code></p>
             </div>
             <hr class="my-3" />
-            <a wire:click="ToggleInviteSuccessModal()" class="float-left cursor-pointer inline-block text-indigo-800 font-bold hover:underline px-4 py-3">
+            <a wire:click="CloseInviteSuccessModal()" class="float-left cursor-pointer inline-block text-indigo-800 font-bold hover:underline px-4 py-3">
                 Close
             </a>
         </x-modal>
@@ -163,7 +163,7 @@
                 <p>New password: <code>{{ $password_reset['password'] }}</code></p>
             </div>
             <hr class="my-3" />
-            <a wire:click="TogglePasswordResetSuccessModal()" class="float-left cursor-pointer inline-block text-indigo-800 font-bold hover:underline px-4 py-3">
+            <a wire:click="ClosePasswordResetSuccessModal()" class="float-left cursor-pointer inline-block text-indigo-800 font-bold hover:underline px-4 py-3">
                 Close
             </a>
         </x-modal>

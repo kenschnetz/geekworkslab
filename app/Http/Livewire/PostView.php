@@ -89,6 +89,24 @@
             redirect()->route('dashboard');
         }
 
+        public function ModeratePost($id) {
+            $post = PostModel::where('id', $id)->first();
+            if (!empty($post)) {
+                $post->moderated = true;
+                $post->save();
+                return redirect(request()->header('Referer'));
+            }
+        }
+
+        public function ReinstatePost($id) {
+            $post = PostModel::where('id', $id)->first();
+            if (!empty($post)) {
+                $post->moderated = false;
+                $post->save();
+                return redirect(request()->header('Referer'));
+            }
+        }
+
         public function Icon($category_id) {
             return match($category_id) {
                 1 => 'items',
