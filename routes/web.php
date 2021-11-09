@@ -19,13 +19,9 @@
 
     require __DIR__ . '/auth.php';
 
-//    Route::get('/test', function () {
-//        return view('components.layout', [
-//            'name' => 'Test',
-//            'view' => 'selectable-grid',
-//            'properties' => []
-//        ]);
-//    })->name('test');
+    Route::get('/test', function () {
+        return UserModel::where('email', 'ken@syntaxflow.com')->first();
+    })->name('test');
 
     Route::get('/terms', function () {
         return view('components.layout', [

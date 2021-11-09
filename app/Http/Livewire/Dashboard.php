@@ -11,7 +11,10 @@
     class Dashboard extends Component {
         public bool $showInviteModal = false;
         public bool $showInviteSuccessModal = false;
-        public bool $isAdmin = false;
+        public bool $showPasswordResetModal = false;
+        public bool $showPasswordResetSuccessModal = false;
+        public bool $isStaff = false;
+        public $user_action;
         public $new_user = [
             'name' => null,
             'email' => null,
@@ -19,12 +22,17 @@
             'generated_password' => null,
             'role_id' => 3,
         ];
+        public $password_reset = [
+            'email' => null,
+            'password' => null
+        ];
 
         public function Mount() {
-            $this->isAdmin = Auth::user()->role_id === 1;
+            $this->isStaff = Auth::user()->role_id === 1;
         }
 
         public function ToggleInviteModal() {
+            $this->user_action = 0;
             $this->showInviteModal = !$this->showInviteModal;
         }
 
@@ -32,8 +40,21 @@
             $this->showInviteSuccessModal = !$this->showInviteSuccessModal;
         }
 
-        public function GeneratePassword() {
-            $this->new_user['generated_password'] = Str::random(6);
+        public function TogglePasswordResetModal() {
+            $this->user_action = 1;
+            $this->showPasswordResetModal = !$this->showPasswordResetModal;
+        }
+
+        public function TogglePasswordResetSuccessModal() {
+            $this->showPasswordResetSuccessModal = !$this->showPasswordResetSuccessModal;
+        }
+
+        public function GeneratePassword($new_user = true) {
+            if ($new_user) {
+                $this->new_user['generated_password'] = Str::random(6);
+            } else {
+                $this->password_reset['password'] = Str::random(6);
+            }
         }
 
         public function AddUser() {
@@ -50,21 +71,39 @@
             }
         }
 
+        public function ResetUserPassword() {
+            $password_reset_user = UserModel::where('email', $this->password_reset['email'])->first();
+            if(!empty($password_reset_user)) {
+                $this->validate();
+                $password_reset_user->password = bcrypt($this->password_reset['password']);
+                $password_reset_user->save();
+                $this->showPasswordResetModal = false;
+                $this->showPasswordResetSuccessModal = true;
+            }
+        }
+
         public function Render() {
             $user = Auth::user();
             return view('livewire.dashboard')->with(['user' => $user]);
         }
 
         protected function Rules() {
-            return [
-                'new_user.name' => 'required|string',
-                'new_user.email' => [
-                    'required',
-                    'string',
-                    Rule::unique('users', 'email')
-                ],
-                'new_user.generated_password' => 'required|string',
-                'new_user.role_id' => 'required|integer',
-            ];
+            if ($this->user_action === 0) {
+                return [
+                    'new_user.name' => 'required|string',
+                    'new_user.email' => [
+                        'required',
+                        'string',
+                        Rule::unique('users', 'email')
+                    ],
+                    'new_user.generated_password' => 'required|string',
+                    'new_user.role_id' => 'required|integer',
+                ];
+            } else {
+                return [
+                    'password_reset.email' => 'required|string',
+                    'password_reset.password' => 'required|string',
+                ];
+            }
         }
     }

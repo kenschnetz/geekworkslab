@@ -1,4 +1,4 @@
-<div x-data="{ showInviteModal: @entangle('showInviteModal'), showInviteSuccessModal: @entangle('showInviteSuccessModal') }">
+<div x-data="{ showInviteModal: @entangle('showInviteModal'), showInviteSuccessModal: @entangle('showInviteSuccessModal'), showPasswordResetModal: @entangle('showPasswordResetModal'), showPasswordResetSuccessModal: @entangle('showPasswordResetSuccessModal'), }">
     <div class="grid grid-cols-1 gap-3 md:grid-cols-3 lg:grid-cols-4">
         <div class="col md:col-span-2 lg:col-span-3">
             <div class="p-3 bg-white shadow rounded flex flex-col md:py-4 md:px-6">
@@ -28,14 +28,19 @@
                     </div>
                 </div>
             </div>
-            @if($isAdmin)
+            @if($isStaff)
                 <div class="mt-6 p-3 bg-white shadow rounded flex flex-col md:py-4 md:px-6">
-                    <p class="text-xl font-bold">Admin Tools</p>
+                    <p class="text-xl font-bold">Staff Tools</p>
                     <hr class="my-3" />
                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-1">
                         <div>
                             <a wire:click="ToggleInviteModal()" class="w-full text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
                                 Add User
+                            </a>
+                        </div>
+                        <div>
+                            <a wire:click="TogglePasswordResetModal()" class="w-full text-center cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800">
+                                Password Reset
                             </a>
                         </div>
                     </div>
@@ -119,6 +124,46 @@
             </div>
             <hr class="my-3" />
             <a wire:click="ToggleInviteSuccessModal()" class="float-left cursor-pointer inline-block text-indigo-800 font-bold hover:underline px-4 py-3">
+                Close
+            </a>
+        </x-modal>
+    </div>
+    <div class="absolute top-0 left-0">
+        <x-modal class="w-full lg:w-2/3 xl:w-1/2 m-6 lg:m-auto bg-white shadow-2xl rounded-xl p-8" trigger="showPasswordResetModal">
+            <p class="text-xl font-bold">Password Reset</p>
+            <hr class="my-3" />
+            <div x-cloak>
+                <form class="w-full" id="new-user-form" wire:submit.prevent="ResetUserPassword()">
+                    @csrf
+                    <div class="w-full p-3">
+                        <input class="mt-3 appearance-none bg-transparent w-full text-gray-700 p-2 leading-tight focus:outline-none" type="text" wire:model="password_reset.email" placeholder="Email">
+                        @error('password_reset.email')<p class="my-3 italic text-red-700">{{ $message }}</p>@enderror
+                        <input class="mt-3 appearance-none bg-transparent w-full text-gray-700 p-2 leading-tight focus:outline-none" type="text" wire:model="password_reset.password" placeholder="Password">
+                        @error('password_reset.password')<p class="my-3 italic text-red-700">{{ $message }}</p>@enderror
+                        <a wire:click="GeneratePassword(false)" class="cursor-pointer inline-block text-indigo-800 py-3 italic">
+                            Generate Password
+                        </a>
+                        <hr class="my-3" />
+                        <a wire:click="TogglePasswordResetModal()" class="float-left cursor-pointer inline-block text-indigo-800 font-bold hover:underline px-4 py-3">
+                            Cancel
+                        </a>
+                        <button class="float-right cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </x-modal>
+    </div>
+    <div class="absolute top-0 left-0">
+        <x-modal class="w-full lg:w-2/3 xl:w-1/2 m-6 lg:m-auto bg-white shadow-2xl rounded-xl p-8" trigger="showPasswordResetSuccessModal">
+            <p class="text-xl font-bold">Success!</p>
+            <hr class="my-3" />
+            <div x-cloak>
+                <p>New password: <code>{{ $password_reset['password'] }}</code></p>
+            </div>
+            <hr class="my-3" />
+            <a wire:click="TogglePasswordResetSuccessModal()" class="float-left cursor-pointer inline-block text-indigo-800 font-bold hover:underline px-4 py-3">
                 Close
             </a>
         </x-modal>
