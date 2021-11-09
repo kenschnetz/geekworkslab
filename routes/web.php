@@ -41,7 +41,7 @@
             'view' => 'profile',
             'properties' => ['user_id' => $user_id]
         ]);
-    })->name('profile');
+    })->name('profile')->middleware('terms');
 
     Route::get('/account', function () {
         return view('components.layout', [
@@ -49,7 +49,7 @@
             'view' => 'account',
             'properties' => []
         ]);
-    })->name('account');
+    })->name('account')->middleware('auth', 'terms');
 
     Route::get('/collections/{user_id?}', function ($user_id = null) {
         return view('components.layout', [
@@ -57,7 +57,15 @@
             'view' => 'collections',
             'properties' => ['user_id' => $user_id]
         ]);
-    })->name('collections');
+    })->name('collections')->middleware('terms');
+
+    Route::get('/accept-terms', function () {
+        return view('components.layout', [
+            'name' => 'Accept Terms and Conditions',
+            'view' => 'accept-terms',
+            'properties' => []
+        ]);
+    })->name('accept-terms')->middleware('auth');
 
     Route::get('/dashboard', function () {
         return view('components.layout', [
@@ -65,7 +73,7 @@
             'view' => 'dashboard',
             'properties' => []
         ]);
-    })->name('dashboard')->middleware('auth');
+    })->name('dashboard')->middleware('auth', 'terms');
 
     Route::get('/invite-user', function () {
         return view('components.layout', [
@@ -73,7 +81,7 @@
             'view' => 'invite-user',
             'properties' => []
         ]);
-    })->name('invite-user')->middleware('auth');
+    })->name('invite-user')->middleware('auth', 'terms');
 
     Route::get('/post/{post_id?}', function ($post_id = null) {
         return view('components.layout', [
@@ -81,7 +89,7 @@
             'view' => 'post-edit',
             'properties' => ['post_id' => $post_id]
         ]);
-    })->name('post-edit')->middleware('auth');
+    })->name('post-edit')->middleware('auth', 'terms');
 
     Route::get('/forum', function () {
         return view('components.layout', [
@@ -89,7 +97,7 @@
             'view' => 'forum',
             'properties' => []
         ]);
-    })->name('forum')->middleware('auth');
+    })->name('forum')->middleware('auth', 'terms');
 
 
     Route::get('/', function () {
@@ -98,7 +106,7 @@
             'view' => 'post-list',
             'properties' => []
         ]);
-    })->name('home');
+    })->name('home')->middleware('terms');
 
     Route::get('/author-posts/{user_id}', function ($user_id) {
         $user = UserModel::where('id', $user_id)->first();
@@ -113,7 +121,7 @@
                 'user_id' => $user->id
             ]
         ]);
-    })->name('author-posts');
+    })->name('author-posts')->middleware('terms');
 
     Route::get('/{category_slug}', function ($category_slug) {
         $category = CategoryModel::where('slug', $category_slug)->first();
@@ -127,7 +135,7 @@
                 'category' => $category
             ]
         ]);
-    })->name('category');
+    })->name('category')->middleware('terms');
 
     Route::get('/{category_slug}/{post_slug}', function ($category_slug, $post_slug) {
         $post = PostModel::where('slug', $post_slug)->with('Category')->first();
@@ -139,4 +147,4 @@
             'view' => 'post-view',
             'properties' => ['post_slug' => $post_slug]
         ]);
-    })->name('post');
+    })->name('post')->middleware('terms');

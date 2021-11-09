@@ -18,6 +18,8 @@
         protected $fillable = [
             'name',
             'email',
+            'terms_accepted',
+            'terms_accepted_date',
             'password',
         ];
 
