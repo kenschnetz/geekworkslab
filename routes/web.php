@@ -20,9 +20,9 @@
 
     require __DIR__ . '/auth.php';
 
-    Route::get('/test', function () {
-        return UserModel::where('email', 'ken@syntaxflow.com')->first();
-    })->name('test');
+//    Route::get('/test', function () {
+//        return UserModel::where('email', 'ken@syntaxflow.com')->first();
+//    })->name('test');
 
     Route::get('/terms', function () {
         return view('components.layout', [
