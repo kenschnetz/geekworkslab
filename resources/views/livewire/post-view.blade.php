@@ -42,7 +42,7 @@
                     @endif
                 @endif
                 <div id="post-content" class="font-md">
-                    {!! strip_tags($post->content, '<strong><em><del><br><a>') !!}
+                    {!! strip_tags($post->content, '<strong><em><del><br>') !!}
                 </div>
                 @if(count($post->Attributes) > 0)
                     <hr class="my-3" />
