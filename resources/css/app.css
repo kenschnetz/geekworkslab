@@ -31,6 +31,10 @@
     display: none !important;
 }
 
+.trix-button--icon-link {
+    display: none !important;
+}
+
 #post-content {
     line-height: 2 !important;
 }
