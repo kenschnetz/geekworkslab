@@ -20,6 +20,8 @@
             'email',
             'terms_accepted',
             'terms_accepted_date',
+            'role_id',
+            'unread_global_messages',
             'password',
         ];
 

@@ -68,9 +68,9 @@
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                                     </svg>
                                 </div>
-{{--                                @if(count(optional(Auth::user())->Messages()->where('read', false)->get()) > 0)--}}
+                                @if(auth()->user()->unread_global_messages > 0)
                                     <span class="text-white bg-red-600 absolute h-3 w-3 rounded-full -top-2 -right-3 text-xs" />
-{{--                                @endif--}}
+                                @endif
                             </button>
                         </x-slot>
                         <x-slot name="content">
@@ -83,9 +83,9 @@
                             <x-dropdown-link :href="route('messenger')">
                                 {{ __('Messenger') }}
                                 @auth
-{{--                                @if(count(optional(Auth::user())->Messages()->where('read', false)->get()) > 0)--}}
-                                    <span class="text-white bg-red-600 h-4 w-4 px-1 ml-2 rounded-full text-xs px-2 py-1">NEW</span>
-{{--                                @endif--}}
+                                    @if(auth()->user()->unread_global_messages > 0)
+                                        <span class="text-white bg-red-600 h-4 w-4 px-1 ml-2 rounded-full text-xs px-2 py-1">{{ auth()->user()->unread_global_messages }}</span>
+                                    @endif
                                 @endauth
                             </x-dropdown-link>
                             <hr />

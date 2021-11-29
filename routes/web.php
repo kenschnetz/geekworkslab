@@ -21,7 +21,7 @@
     require __DIR__ . '/auth.php';
 
 //    Route::get('/test', function () {
-//        return UserModel::where('email', 'ken@syntaxflow.com')->first();
+//        return UserModel::where('id', '!=', auth()->user()->id)->increment('unread_global_messages');
 //    })->name('test');
 
     Route::get('/terms', function () {
