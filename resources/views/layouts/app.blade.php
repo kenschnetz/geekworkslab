@@ -14,9 +14,14 @@
         <!-- Scripts -->
         <script>
             (function() {
+                document.addEventListener("DOMContentLoaded", function(event) {
+                    var scrollpos = localStorage.getItem('scrollpos');
+                    if (scrollpos) window.scrollTo(0, scrollpos);
+                });
                 window.onpageshow = function(event) {
                     if (event.persisted) {
-                        document.location.reload();
+                        localStorage.setItem('scrollpos', window.scrollY);
+                        window.location.reload();
                     }
                 };
             })();
