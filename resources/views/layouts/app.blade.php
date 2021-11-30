@@ -14,14 +14,14 @@
         <!-- Scripts -->
         <script>
             (function() {
-                window.onpageshow = function(event) {
-                    if(window.location.href === 'https://forge.geekworksstudios.com'
-                        || window.location.href === 'https://forge.geekworksstudios.com/items'
-                        || window.location.href === 'https://forge.geekworksstudios.com/monsters'
-                        || window.location.href === 'https://forge.geekworksstudios.com/hooks'
-                        || window.location.href === 'https://forge.geekworksstudios.com/abilities'
-                        || window.location.href === 'https://forge.geekworksstudios.com/misc'
-                    ) {
+                // if(window.location.href === 'https://forge.geekworksstudios.com'
+                //     || window.location.href === 'https://forge.geekworksstudios.com/items'
+                //     || window.location.href === 'https://forge.geekworksstudios.com/monsters'
+                //     || window.location.href === 'https://forge.geekworksstudios.com/hooks'
+                //     || window.location.href === 'https://forge.geekworksstudios.com/abilities'
+                //     || window.location.href === 'https://forge.geekworksstudios.com/misc'
+                // ) {
+                    window.onpageshow = function (event) {
                         if (event.persisted) {
                             var scrollpos = localStorage.getItem('scrollpos');
                             if (scrollpos) {
@@ -30,8 +30,8 @@
                             window.location.reload();
                             localStorage.setItem('scrollpos', window.scrollY);
                         }
-                    }
-                };
+                    };
+                // }
             })();
         </script>
         <script src="{{ asset('js/app.js') }}" defer></script>
