@@ -13,20 +13,12 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <!-- Scripts -->
         <script>
-            (function() {
-                window.onload = function(event) {
+            (function() {;
+                window.onpageshow = function(event) {
                     var scrollpos = localStorage.getItem('scrollpos');
                     if (scrollpos) {
                         window.scroll(0, scrollpos);
-                        alert(scrollpos);
                     }
-                };
-
-                window.onbeforeunload = function(e) {
-                    localStorage.setItem('scrollpos', window.scrollY);
-                };
-
-                window.onpageshow = function(event) {
                     if (event.persisted) {
                         window.location.reload();
                         localStorage.setItem('scrollpos', window.scrollY);
