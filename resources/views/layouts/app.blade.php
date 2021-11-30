@@ -12,23 +12,6 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <!-- Scripts -->
-        <script>
-            (function() {
-                window.addEventListener("DOMContentLoaded", function(event) {
-                    var scrollpos = localStorage.getItem('scrollpos');
-                    if (scrollpos) window.scrollTo(0, scrollpos);
-                });
-                window.onbeforeunload = function(event) {
-                    localStorage.setItem('scrollpos', window.scrollY);
-                    alert(window.scrollY);
-                };
-                window.onpageshow = function(event) {
-                    if (event.persisted) {
-                        window.location.reload();
-                    }
-                };
-            })();
-        </script>
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
