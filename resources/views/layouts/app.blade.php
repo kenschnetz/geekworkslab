@@ -15,11 +15,11 @@
         <script>
             (function() {;
                 window.onpageshow = function(event) {
-                    var scrollpos = localStorage.getItem('scrollpos');
-                    if (scrollpos) {
-                        window.scroll(0, scrollpos);
-                    }
                     if (event.persisted) {
+                        var scrollpos = localStorage.getItem('scrollpos');
+                        if (scrollpos) {
+                            window.scroll(0, scrollpos);
+                        }
                         window.location.reload();
                         localStorage.setItem('scrollpos', window.scrollY);
                     }
