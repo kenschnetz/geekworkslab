@@ -16,17 +16,16 @@
             (function() {
                 window.onload = function(event) {
                     var scrollpos = localStorage.getItem('scrollpos');
-                    if (scrollpos) {
+                    if (scrollpos > 0) {
                         window.scroll(0, scrollpos);
                     }
                 }
-                // window.onbeforeunload = function(e) {
-                //     localStorage.setItem('scrollpos', window.scrollY);
-                // };
+                window.onbeforeunload = function(e) {
+                    localStorage.setItem('scrollpos', window.scrollY);
+                };
                 window.onpageshow = function(event) {
                     if (event.persisted) {
                         window.location.reload();
-                        localStorage.setItem('scrollpos', window.scrollY);
                     }
                 };
             })();
