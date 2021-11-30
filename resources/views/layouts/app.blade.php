@@ -20,6 +20,7 @@
                 });
                 window.onbeforeunload = function(event) {
                     localStorage.setItem('scrollpos', window.scrollY);
+                    alert(window.scrollY);
                 };
                 window.onpageshow = function(event) {
                     if (event.persisted) {
