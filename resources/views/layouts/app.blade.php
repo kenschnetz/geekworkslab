@@ -13,14 +13,14 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <!-- Scripts -->
         <script>
-            (function() {;
+            (function() {
                 window.onpageshow = function(event) {
-                    if(location.href === 'https://forge.geekworksstudios.com'
-                        || location.href === 'https://forge.geekworksstudios.com/items'
-                        || location.href === 'https://forge.geekworksstudios.com/monsters'
-                        || location.href === 'https://forge.geekworksstudios.com/hooks'
-                        || location.href === 'https://forge.geekworksstudios.com/abilities'
-                        || location.href === 'https://forge.geekworksstudios.com/misc'
+                    if(window.location.href === 'https://forge.geekworksstudios.com'
+                        || window.location.href === 'https://forge.geekworksstudios.com/items'
+                        || window.location.href === 'https://forge.geekworksstudios.com/monsters'
+                        || window.location.href === 'https://forge.geekworksstudios.com/hooks'
+                        || window.location.href === 'https://forge.geekworksstudios.com/abilities'
+                        || window.location.href === 'https://forge.geekworksstudios.com/misc'
                     ) {
                         if (event.persisted) {
                             var scrollpos = localStorage.getItem('scrollpos');
