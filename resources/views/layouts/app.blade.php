@@ -15,19 +15,18 @@
         <script>
             (function() {
                 window.onload = function(event) {
-                    if (window.location.href.indexOf('page_y') !== -1) {
-                        var match = window.location.href.split('?')[1].match(/\d+$/);
-                        var page_y = match[0];
-                        window.scrollTop(page_y);
-                    }
-                }
+                    var scrollpos = localStorage.getItem('scrollpos');
+                    if (scrollpos) window.scrollTo(0, scrollpos);
+                };
+
+                window.onbeforeunload = function(e) {
+                    localStorage.setItem('scrollpos', window.scrollY);
+                };
 
                 window.onpageshow = function(event) {
                     if (event.persisted) {
-                        // window.location.reload();
-
-                        var page_y = $( document ).scrollTop();
-                        window.location.replace = window.location.href + '?page_y=' + page_y;
+                        window.location.reload();
+                        localStorage.setItem('scrollpos', window.scrollY);
                     }
                 };
             })();
