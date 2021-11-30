@@ -14,14 +14,18 @@
         <!-- Scripts -->
         <script>
             (function() {
-                document.addEventListener("DOMContentLoaded", function(event) {
-                    var scrollpos = localStorage.getItem('scrollpos');
-                    if (scrollpos) window.scrollTo(0, scrollpos);
-                });
+                if ( window.location.href.indexOf( 'page_y' ) !== -1 ) {
+                    var match = window.location.href.split('?')[1].match(/\d+$/);
+                    var page_y = match[0];
+                    window.scrollTop(page_y);
+                }
+
                 window.onpageshow = function(event) {
                     if (event.persisted) {
-                        localStorage.setItem('scrollpos', window.scrollY);
-                        window.location.reload();
+                        // window.location.reload();
+
+                        var page_y = $( document ).scrollTop();
+                        window.location.href = window.location.href + '?page_y=' + page_y;
                     }
                 };
             })();
