@@ -15,13 +15,20 @@
         <script>
             (function() {;
                 window.onpageshow = function(event) {
-                    if (event.persisted) {
-                        var scrollpos = localStorage.getItem('scrollpos');
-                        if (scrollpos) {
-                            window.scroll(0, scrollpos);
+                    if(location.href === 'https://forge.geekworksstudios.com/items'
+                        || location.href === 'https://forge.geekworksstudios.com/monsters'
+                        || location.href === 'https://forge.geekworksstudios.com/hooks'
+                        || location.href === 'https://forge.geekworksstudios.com/abilities'
+                        || location.href === 'https://forge.geekworksstudios.com/misc'
+                    ) {
+                        if (event.persisted) {
+                            var scrollpos = localStorage.getItem('scrollpos');
+                            if (scrollpos) {
+                                window.scroll(0, scrollpos);
+                            }
+                            window.location.reload();
+                            localStorage.setItem('scrollpos', window.scrollY);
                         }
-                        window.location.reload();
-                        localStorage.setItem('scrollpos', window.scrollY);
                     }
                 };
             })();
