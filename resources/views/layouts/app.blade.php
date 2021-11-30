@@ -14,13 +14,11 @@
         <!-- Scripts -->
         <script>
             (function() {
-                window.onload = function(event) {
+                document.addEventListener("DOMContentLoaded", function(event) {
                     var scrollpos = localStorage.getItem('scrollpos');
-                    if (scrollpos > 0) {
-                        window.scroll(0, scrollpos);
-                    }
-                }
-                window.onbeforeunload = function(e) {
+                    if (scrollpos) window.scrollTo(0, scrollpos);
+                });
+                window.onbeforeunload = function(event) {
                     localStorage.setItem('scrollpos', window.scrollY);
                 };
                 window.onpageshow = function(event) {
