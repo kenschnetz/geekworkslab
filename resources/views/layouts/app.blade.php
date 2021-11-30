@@ -15,7 +15,8 @@
         <script>
             (function() {;
                 window.onpageshow = function(event) {
-                    if(location.href === 'https://forge.geekworksstudios.com/items'
+                    if(location.href === 'https://forge.geekworksstudios.com'
+                        || location.href === 'https://forge.geekworksstudios.com/items'
                         || location.href === 'https://forge.geekworksstudios.com/monsters'
                         || location.href === 'https://forge.geekworksstudios.com/hooks'
                         || location.href === 'https://forge.geekworksstudios.com/abilities'
