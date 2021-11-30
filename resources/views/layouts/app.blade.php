@@ -14,10 +14,12 @@
         <!-- Scripts -->
         <script>
             (function() {
-                if ( window.location.href.indexOf( 'page_y' ) !== -1 ) {
-                    var match = window.location.href.split('?')[1].match(/\d+$/);
-                    var page_y = match[0];
-                    window.scrollTop(page_y);
+                window.onload = function(event) {
+                    if (window.location.href.indexOf('page_y') !== -1) {
+                        var match = window.location.href.split('?')[1].match(/\d+$/);
+                        var page_y = match[0];
+                        window.scrollTop(page_y);
+                    }
                 }
 
                 window.onpageshow = function(event) {
@@ -25,7 +27,7 @@
                         // window.location.reload();
 
                         var page_y = $( document ).scrollTop();
-                        window.location.href = window.location.href + '?page_y=' + page_y;
+                        window.location.replace = window.location.href + '?page_y=' + page_y;
                     }
                 };
             })();
