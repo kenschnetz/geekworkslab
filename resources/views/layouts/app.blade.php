@@ -16,7 +16,10 @@
             (function() {
                 window.onload = function(event) {
                     var scrollpos = localStorage.getItem('scrollpos');
-                    if (scrollpos) window.scrollTo(0, scrollpos);
+                    if (scrollpos) {
+                        window.scroll(0, scrollpos);
+                        alert(scrollpos);
+                    }
                 };
 
                 window.onbeforeunload = function(e) {
