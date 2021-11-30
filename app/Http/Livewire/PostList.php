@@ -22,10 +22,6 @@
             return (new MiscUtilities)->ShortenBigNumber($number);
         }
 
-        public function View($category_slug, $post_slug) {
-            return redirect()->route( 'post', ['category_slug' => $category_slug, 'post_slug' => $post_slug]);
-        }
-
         public function Icon($category_id) {
             return match($category_id) {
                 1 => 'items',
