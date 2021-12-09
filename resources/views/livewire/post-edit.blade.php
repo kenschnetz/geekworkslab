@@ -172,13 +172,12 @@
                 <div x-show="tab === 1" class="p-3 border -mt-px">
                     <form class="w-full" id="new-image-form" wire:submit.prevent="UploadImage()">
                         @csrf
-                        <div class="w-full p-3">
+                        <div class="w-full p-3" x-data="{ isUploading: false, progress: 0 }">
                             <input class="appearance-none bg-transparent w-full text-gray-700 p-2 border-0 leading-tight focus:outline-none" type="text" wire:model="new_image.name" placeholder="Image Name">
                             @error('new_image.name')<p class="my-3 italic text-red-700">{{ $message }}</p>@enderror
                             <hr class="my-3" />
                             <div
-                                x-data="{ isUploading: false, progress: 0 }"
-                                x-on:livewire-upload-start="isUploading = true"
+                                x-on:livewire-upload-start="isUploading = true; progress = 0;"
                                 x-on:livewire-upload-finish="isUploading = false"
                                 x-on:livewire-upload-error="isUploading = false"
                                 x-on:livewire-upload-progress="progress = $event.detail.progress"
