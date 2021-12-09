@@ -78,4 +78,12 @@
         public function Collections() {
             return $this->belongsToMany(Collection::class, 'collection_posts');
         }
+
+        public function Views() {
+            return $this->hasMany(PostView::class);
+        }
+
+        public function ViewCount() {
+            return $this->hasMany(PostView::class)->count();
+        }
     }

@@ -3,6 +3,7 @@
     namespace App\Http\Livewire;
 
     use App\Models\Post as PostModel;
+    use App\Models\PostView as PostViewModel;
     use App\Models\PostComment as PostCommentModel;
     use App\Models\PostUpvote as PostUpvoteModel;
     use App\Utilities\Misc;
@@ -24,12 +25,23 @@
         public int|null $user_id;
         public int|null $post_id;
         public string $post_slug;
+        public int|null $views;
         public bool|null $upvoted;
         public string $default_image_url = '/img/default-placeholder.png';
         protected $listeners = ['ReplyingTo' => 'ReplyingTo', 'EditComment' => 'EditComment', 'DeleteComment' => 'DeleteComment'];
 
         public function Mount() {
             $this->user_id = Auth::id();
+            $post_view = PostViewModel::where('user_id', $this->user_id)->where('post_id', $this->post_id)->first();
+            if (empty($post_view)) {
+                $post_view = new PostViewModel;
+                $post_view->user_id = $this->user_id;
+                $post_view->post_id = $this->post_id;
+                $post_view->count = 1;
+            } else {
+                $post_view->increment('count');
+            }
+            $post_view->save();
         }
 
         public function Upvote() {
@@ -123,7 +135,8 @@
                 ->withCount('AllComments', 'Upvotes')
                 ->first();
             $this->post_id = $post->id;
+            $views = $this->views = $post->ViewCount();
             $upvoted = $this->upvoted = PostUpvoteModel::where('post_id', $this->post_id)->where('user_id', Auth::id())->exists();
-            return view('livewire.post-view')->with(['post' => $post, 'comments' => $post->Comments()->paginate(10), 'upvoted' => $upvoted]);
+            return view('livewire.post-view')->with(['post' => $post, 'comments' => $post->Comments()->paginate(10), 'upvoted' => $upvoted, 'views' => $views]);
         }
     }

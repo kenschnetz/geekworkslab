@@ -17,6 +17,7 @@
                 <p class="mt-3 md:mt-0 text-center md:text-left text-sm">
                     By <a class="underline hover:no-underline" href="{{ route('profile', ['user_id' => $post->User->id]) }}">{{ $post->User->name }}</a><span class="mx-3">|</span>
                     <a class="underline hover:no-underline" href="#comments">{{$post->all_comments_count . ($post->all_comments_count === 0 || $post->all_comments_count > 1 ? ' Comments' : ' Comment')}}</a><span class="mx-3">|</span>
+                    {{ number_format($views) }} {{ $views > 0 ? 'view' : 'views' }}<span class="mx-3">|</span>
                     {{$post->upvotes_count . ($post->upvotes_count === 0 || $post->upvotes_count > 1 ? ' Upvotes' : ' Upvote')}}
                     @if(Auth::check() && $post->user_id !== Auth::id())
                         .

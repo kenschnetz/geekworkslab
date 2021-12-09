@@ -162,6 +162,6 @@
         return view('components.layout', [
             'name' => Str::singular($post->Category->name) . ": " . $post->title,
             'view' => 'post-view',
-            'properties' => ['post_slug' => $post_slug]
+            'properties' => ['post_slug' => $post_slug, 'post_id' => $post->id]
         ]);
     })->name('post')->middleware('auth', 'terms');
