@@ -160,7 +160,7 @@
         public function UploadImage() {
             $this->validate([
                 'new_image.name' => 'required|string',
-                'new_image.file' => 'required|image',
+                'new_image.file' => 'required|image|max:10240',
             ]);
             $path = $this->new_image['file']->store('/public/post-images/' . Auth::id());
             ImageModel::create([

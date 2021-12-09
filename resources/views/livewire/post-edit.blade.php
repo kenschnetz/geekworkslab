@@ -176,10 +176,24 @@
                             <input class="appearance-none bg-transparent w-full text-gray-700 p-2 border-0 leading-tight focus:outline-none" type="text" wire:model="new_image.name" placeholder="Image Name">
                             @error('new_image.name')<p class="my-3 italic text-red-700">{{ $message }}</p>@enderror
                             <hr class="my-3" />
-                            <input class="appearance-none bg-transparent border-gray-200 w-full text-gray-700 mr-3 p-2 leading-tight focus:outline-none" type="file" wire:model="new_image.file">
+                            <div
+                                x-data="{ isUploading: false, progress: 0 }"
+                                x-on:livewire-upload-start="isUploading = true"
+                                x-on:livewire-upload-finish="isUploading = false"
+                                x-on:livewire-upload-error="isUploading = false"
+                                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                            >
+                                <input class="appearance-none bg-transparent border-gray-200 w-full text-gray-700 mr-3 p-2 leading-tight focus:outline-none" type="file" wire:model="new_image.file">
+                                <p class="text-sm">
+                                    NOTE: max file upload size is 10mb
+                                </p>
+                                <div x-show="isUploading">
+                                    <progress max="100" x-bind:value="progress"></progress>
+                                </div>
+                            </div>
                             @error('new_image.file')<p class="my-3 italic text-red-700">{{ $message }}</p>@enderror
                             <hr class="my-3" />
-                            <button class="cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800" type="submit">
+                            <button x-hide="isUploading" class="cursor-pointer inline-block bg-indigo-800 hover:bg-transparent text-white hover:text-indigo-800 font-bold px-4 py-3 border border-indigo-800" type="submit">
                                 Upload
                             </button>
                         </div>
