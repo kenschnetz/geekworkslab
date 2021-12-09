@@ -24,6 +24,19 @@
 //        return UserModel::where('id', '!=', auth()->user()->id)->increment('unread_global_messages');
 //    })->name('test');
 
+    Route::get('/', function () {
+        if (auth()->check()) {
+            $view = view('components.layout', [
+                'name' => 'Latest Submissions',
+                'view' => 'post-list',
+                'properties' => []
+            ]);
+        } else {
+            $view = view('livewire.welcome');
+        }
+        return $view;
+    })->name('home')->middleware('terms');
+
     Route::get('/terms', function () {
         return view('components.layout', [
             'name' => 'Terms and Conditions',
@@ -32,13 +45,21 @@
         ]);
     })->name('terms');
 
+    Route::get('/contact', function () {
+        return view('components.layout', [
+            'name' => 'Contact GWS Forge Team',
+            'view' => 'contact',
+            'properties' => []
+        ]);
+    })->name('contact');
+
     Route::get('/profile/{user_id?}', function ($user_id = null) {
         return view('components.layout', [
             'name' => 'Profile',
             'view' => 'profile',
             'properties' => ['user_id' => $user_id]
         ]);
-    })->name('profile')->middleware('terms');
+    })->name('profile')->middleware('auth', 'terms');
 
     Route::get('/account', function () {
         return view('components.layout', [
@@ -62,7 +83,7 @@
             'view' => 'collections',
             'properties' => ['user_id' => $user_id]
         ]);
-    })->name('collections')->middleware('terms');
+    })->name('collections')->middleware('auth', 'terms');
 
     Route::get('/accept-terms', function () {
         return view('components.layout', [
@@ -104,15 +125,6 @@
         ]);
     })->name('forum')->middleware('auth', 'terms');
 
-
-    Route::get('/', function () {
-        return view('components.layout', [
-            'name' => 'Latest Submissions',
-            'view' => 'post-list',
-            'properties' => []
-        ]);
-    })->name('home')->middleware('terms');
-
     Route::get('/author-posts/{user_id}', function ($user_id) {
         $user = UserModel::where('id', $user_id)->first();
         if (empty($user)) {
@@ -126,7 +138,7 @@
                 'user_id' => $user->id
             ]
         ]);
-    })->name('author-posts')->middleware('terms');
+    })->name('author-posts')->middleware('auth', 'terms');
 
     Route::get('/{category_slug}', function ($category_slug) {
         $category = CategoryModel::where('slug', $category_slug)->first();
@@ -140,7 +152,7 @@
                 'category' => $category
             ]
         ]);
-    })->name('category')->middleware('terms');
+    })->name('category')->middleware('auth', 'terms');
 
     Route::get('/{category_slug}/{post_slug}', function ($category_slug, $post_slug) {
         $post = PostModel::where('slug', $post_slug)->with('Category')->first();
@@ -152,4 +164,4 @@
             'view' => 'post-view',
             'properties' => ['post_slug' => $post_slug]
         ]);
-    })->name('post')->middleware('terms');
+    })->name('post')->middleware('auth', 'terms');
